@@ -1,0 +1,33 @@
+# Общие игнорируемые файлы и папки
+node_modules/
+dist/
+build/
+bin/
+static/
+.env
+.DS_Store
+.vscode/
+.idea/
+*.log
+
+# Игнорирование для Go (backend)
+backend/bin/
+backend/pkg/
+backend/.env
+backend/.DS_Store
+backend/.vscode/
+backend/.idea/
+backend/*.log
+backend/coverage/
+backend/test-results/
+
+# Игнорирование для React с использованием Vite (frontend)
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.DS_Store
+frontend/.vscode/
+frontend/.idea/
+frontend/*.log
+frontend/coverage/
+frontend/test-results/
