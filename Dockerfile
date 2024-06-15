@@ -20,16 +20,18 @@ COPY frontend/ .
 RUN pnpm run build
 
 
-# 3. Run
-FROM gcr.io/distroless/base-debian12
+# 3. Run Backend
+FROM gcr.io/distroless/base-debian12 AS backend
 
 WORKDIR /app
 COPY --from=builder-backend /build/word .
-COPY --from=builder-frontend /frontend/dist ./statics       
-
-# Копируем .env файл
 COPY .env /app/.env
 ENV ACT_MODE="prod"
 
-# Запуск приложения
 CMD ["./word"]
+
+# 4. Nginx
+FROM nginx:alpine AS nginx
+
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=builder-frontend /frontend/dist /usr/share/nginx/html

@@ -27,11 +27,9 @@ func Start() {
 
 	//Создаем сервер
 	server := http.NewServeMux()
-	server.HandleFunc("/", handler.Proxy)
 
 	//Создаем пулл запросов
 	api := http.NewServeMux()
-	api.HandleFunc("/hello", handler.HelloWorld)
 	api.HandleFunc("POST /word", m.With(handler.WordCreate, m.Info))
 	api.HandleFunc("/word", m.With(handler.WordGetAll, m.Info))
 	server.Handle("/api/v1/", http.StripPrefix("/api/v1", api))
