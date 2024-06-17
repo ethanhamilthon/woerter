@@ -34,6 +34,7 @@ FROM nginx:alpine AS nginx
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder-frontend /frontend/dist /usr/share/nginx/html
+COPY --from=builder-frontend /frontend/dist /usr/share/nginx/html/word
 
 # 5. Certbot (Let's Encrypt)
 FROM certbot/certbot AS certbot

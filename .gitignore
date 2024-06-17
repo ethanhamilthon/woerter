@@ -5,6 +5,8 @@ build/
 bin/
 static/
 .env
+.instruction
+ins.txt
 .DS_Store
 .vscode/
 .idea/
