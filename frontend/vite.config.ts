@@ -16,6 +16,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": "http://localhost:8080",
+      "/api/v1/word/": "http://localhost:8080",
       "/oauth": "http://localhost:8080",
     },
   },

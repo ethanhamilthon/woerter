@@ -1,18 +1,16 @@
+import { useAuthStore } from "@/features/auth";
 import { Link } from "react-router-dom";
 
 export function CreateCard() {
+  const { profile } = useAuthStore();
   return (
-    <div className="w-full  flex justify-between gap-16 p-6 bg-purple-700 rounded-xl">
-      <h2 className="text-4xl font-bold text-white leading-tight">
-        С возвращением! Сегодня
-        <br />
-        очень хороший день чтобы
-        <br />
-        учить новые слова
+    <div className="w-full  flex justify-between  rounded-xl items-center">
+      <h2 className="text-2xl font-medium text-zinc-900 leading-tight">
+        Hi, {profile.name}!
       </h2>
       <Link
         to={"/create"}
-        className="flex-1 flex justify-center items-center h-full bg-white rounded-2xl text-xl"
+        className="flex justify-center py-3 px-6 bg-purple-700 items-center h-full text-white rounded-2xl"
       >
         + Создать карточку
       </Link>

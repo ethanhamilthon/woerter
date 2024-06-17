@@ -1,11 +1,17 @@
 import { useAuthStore } from "@/features/auth";
+import { Link } from "react-router-dom";
 
 export function Header() {
   const { profile } = useAuthStore();
   return (
-    <header className="w-full flex justify-center py-4 bg-white">
+    <header className="w-full flex justify-center py-4 bg-white px-4">
       <div className="container flex justify-between items-center">
-        <h2>Logo</h2>
+        <Link
+          to="/"
+          className="text-3xl font-bold text-zinc-900 cursor-pointer"
+        >
+          Woerter
+        </Link>
         <div className="flex items-center gap-4">
           <img
             src={profile.avatar}

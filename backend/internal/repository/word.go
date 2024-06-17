@@ -1,6 +1,10 @@
 package repository
 
-import "github.com/google/uuid"
+import (
+	"database/sql"
+
+	"github.com/google/uuid"
+)
 
 func (repo *Repository) WordCreate(word WordDTO) error {
 	query := `
@@ -21,6 +25,7 @@ func (repo *Repository) WordLoadAll(userID uuid.UUID) ([]WordDTO, error) {
 		SELECT id, title, description, target_language, os_language, created_at, updated_at, user_id
 		FROM words
 		WHERE user_id = $1
+    ORDER BY created_at DESC
 	`
 
 	var words []WordDTO
@@ -30,4 +35,61 @@ func (repo *Repository) WordLoadAll(userID uuid.UUID) ([]WordDTO, error) {
 	}
 
 	return words, nil
+}
+
+func (repo *Repository) WordLoad(userID uuid.UUID, ID uuid.UUID) (WordDTO, error) {
+	query := `
+  SELECT id, title, description, target_language, os_language, created_at, updated_at, user_id
+  FROM words
+  WHERE id = $1 AND user_id = $2
+  `
+	var word WordDTO
+	err := repo.db.Get(&word, query, ID, userID)
+	if err != nil {
+		return word, err
+	}
+
+	return word, nil
+}
+
+func (repo *Repository) WordDelete(userID uuid.UUID, ID uuid.UUID) error {
+	query := `
+        DELETE FROM words
+        WHERE id = $1 AND user_id = $2
+    `
+
+	result, err := repo.db.Exec(query, ID, userID)
+	if err != nil {
+		return err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected == 0 {
+		return sql.ErrNoRows
+	}
+
+	return nil
+}
+
+func (repo *Repository) WordUpdate(word WordDTO) error {
+	query := `
+    UPDATE words
+    SET title = :title,
+        description = :description,
+        target_language = :target_language,
+        os_language = :os_language,
+        updated_at = :updated_at
+    WHERE id = :id AND user_id = :user_id
+    `
+
+	_, err := repo.db.NamedExec(query, word)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
