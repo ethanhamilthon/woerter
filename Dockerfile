@@ -19,7 +19,6 @@ RUN pnpm install
 COPY frontend/ .
 RUN pnpm run build
 
-
 # 3. Run Backend
 FROM gcr.io/distroless/base-debian12 AS backend
 
@@ -35,3 +34,9 @@ FROM nginx:alpine AS nginx
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder-frontend /frontend/dist /usr/share/nginx/html
+
+# 5. Certbot (Let's Encrypt)
+FROM certbot/certbot AS certbot
+
+# Создаем необходимые директории для SSL сертификатов
+RUN mkdir -p /etc/letsencrypt
