@@ -29,13 +29,9 @@ export function CreateWordPage() {
     if (token === null) {
       return;
     }
-    try {
-      const data = await CreateWord(word, token);
-      addCard(data);
-      navigate("/");
-    } catch {
-      return;
-    }
+    const data = await CreateWord(word, token);
+    addCard(data);
+    navigate("/");
   }
   return (
     <>

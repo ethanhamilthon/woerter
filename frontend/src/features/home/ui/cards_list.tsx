@@ -4,9 +4,9 @@ import { Eye } from "lucide-react";
 
 export function CardsList() {
   const { cards } = useCardStore();
-  if (cards.length === 0) {
+  if (cards === null || cards.length === 0) {
     return (
-      <div className="w-full flex items-center justify-center h-32 text-3xl">
+      <div className="w-full flex items-center justify-center font-semibold h-32 text-3xl">
         😅 Пока нету слов тут
       </div>
     );

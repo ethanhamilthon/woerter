@@ -39,7 +39,6 @@ export async function GetWord(token: string, id: string) {
       Authorization: token,
     },
   });
-  console.log(req.ok);
   const data: CardType = await req.json();
 
   return data;

@@ -18,7 +18,6 @@ export function WordPage() {
       navigate("/");
       return;
     }
-    console.log("sended");
     GetWord(token, id).then((data) => {
       setWord(data);
     });

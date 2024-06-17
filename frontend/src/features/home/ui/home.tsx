@@ -24,9 +24,14 @@ export function Home() {
       <Header key="header" />
       <main className="flex justify-center mt-6 bg-white">
         <div className="container flex flex-col gap-8">
-          {state !== "logged" && <LoginPage />}
-          <CreateCard />
-          <CardsList />
+          {state !== "logged" ? (
+            <LoginPage />
+          ) : (
+            <>
+              <CreateCard />
+              <CardsList />
+            </>
+          )}
         </div>
       </main>
     </>

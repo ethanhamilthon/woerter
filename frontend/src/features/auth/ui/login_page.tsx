@@ -1,7 +1,7 @@
 export function LoginPage() {
   return (
-    <div className="w-full h-full justify-center items-center flex flex-col gap-12 rounded-xl bg-zinc-100">
-      <h2 className="text-balance text-3xl font-bold text-zinc-800 text-center">
+    <div className="w-full h-full justify-center items-center flex flex-col gap-12 py-12 rounded-xl bg-zinc-100">
+      <h2 className="text-balance text-3xl font-bold text-zinc-800 text-center ">
         <span className="text-5xl mb-5">🤪</span>
         <br />
         Кажется вы не зашли
