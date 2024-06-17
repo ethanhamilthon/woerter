@@ -12,7 +12,7 @@ export function CardsList() {
     );
   }
   return (
-    <div className="w-full flex flex-wrap gap-3">
+    <div className="w-full flex flex-wrap gap-3 px-4">
       {cards.map((card, i) => {
         return <Card key={i} card={card} />;
       })}

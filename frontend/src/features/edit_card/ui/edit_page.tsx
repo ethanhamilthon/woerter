@@ -64,7 +64,7 @@ export function EditPage() {
   return (
     <>
       <Header />
-      <main className="flex justify-center bg-white mt-6 w-full">
+      <main className="flex justify-center bg-white mt-6 w-full px-4">
         <div className="container flex flex-col gap-12">
           <div className="w-full flex flex-col gap-4 ">
             <span className="font-medium">Ваше слово</span>
@@ -90,13 +90,13 @@ export function EditPage() {
           <div className="w-full flex justify-between items-center">
             <button
               onClick={Delete}
-              className="w-1/3 py-4 bg-red-700 rounded-xl px-8 text-white"
+              className="py-4 bg-red-700 rounded-xl px-8 text-white"
             >
               Удалить слово
             </button>
             <button
               onClick={Update}
-              className="w-1/3 py-4 bg-purple-700 rounded-xl px-8 text-white"
+              className=" py-4 bg-purple-700 rounded-xl px-8 text-white"
             >
               Сохранить
             </button>

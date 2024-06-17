@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { getCookieValue } from "@/utils/cookie_get";
 import { useAuthStore } from "../store/auth_store";
 import { GetMe } from "@/api/me";
+import { useQuery } from "react-query";
 
 type AuthProviderProps = {
   children: React.ReactNode;
@@ -10,17 +11,17 @@ type AuthProviderProps = {
 export function AuthProvider(props: AuthProviderProps) {
   //TODO: надо закончить проверку через провайдер
   const { changeState, changeProfile } = useAuthStore();
-  useEffect(() => {
+  useQuery("getme", async () => {
     changeState("loading");
     const token = getCookieValue("Authorization");
     if (token === null) {
       changeState("noinfo");
       return;
     }
-    GetMe(token).then((data) => {
-      changeProfile(data);
-      changeState("logged");
-    });
-  }, []);
+    const data = await GetMe(token);
+    changeProfile(data);
+    changeState("logged");
+    return data;
+  });
   return <>{props.children}</>;
 }

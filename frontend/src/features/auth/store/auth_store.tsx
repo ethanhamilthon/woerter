@@ -17,7 +17,7 @@ type IAuth = {
 };
 
 export const useAuthStore = create<IAuth>((set) => ({
-  state: "noinfo",
+  state: "loading",
   changeState: (newState: StateType) => set({ state: newState }),
   profile: {
     name: "",
