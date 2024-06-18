@@ -1,11 +1,23 @@
-import { ProfileType } from "@/features/auth";
-
-export async function GetMe(token: string) {
-  const req = await fetch("/oauth/google/me", {
+export function GetMe(token: string) {
+  return fetch("/oauth/google/me", {
     headers: {
       Authorization: token,
     },
   });
-  const data: ProfileType = await req.json();
-  return data;
+}
+
+export function OnboardUpdate(
+  token: string,
+  body: {
+    os_language: string;
+    target_languages: string[];
+  }
+) {
+  return fetch("/api/v1/onboard", {
+    method: "PATCH",
+    headers: {
+      Authorization: token,
+    },
+    body: JSON.stringify(body),
+  });
 }

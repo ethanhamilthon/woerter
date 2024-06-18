@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   backend:
     build:
@@ -7,7 +9,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - ACT_MODE=prod
+      - ACT_MODE=${ACT_MODE}
 
   nginx:
     build:
@@ -29,3 +31,4 @@ services:
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
     entrypoint: /bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'
+

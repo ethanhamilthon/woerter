@@ -3,28 +3,44 @@ import { create } from "zustand";
 type StateType = "logged" | "loading" | "noinfo";
 export type ProfileType = {
   name: string;
+  full_name: string;
   email: string;
   avatar: string;
-  target_language: string;
-  os_language: string;
+  language: string;
+};
+
+export type LanguageType = {
+  name: string;
 };
 
 type IAuth = {
   state: StateType;
   changeState: (newState: StateType) => void;
-  profile: ProfileType;
-  changeProfile: (newProfile: ProfileType) => void;
+  profile: {
+    user: ProfileType;
+    languages: LanguageType[];
+  };
+  changeProfile: (newProfile: {
+    user: ProfileType;
+    languages: LanguageType[];
+  }) => void;
 };
 
 export const useAuthStore = create<IAuth>((set) => ({
   state: "loading",
   changeState: (newState: StateType) => set({ state: newState }),
   profile: {
-    name: "",
-    email: "",
-    avatar: "",
-    target_language: "",
-    os_language: "",
+    user: {
+      name: "",
+      full_name: "",
+      email: "",
+      avatar: "",
+      language: "",
+    },
+    languages: [],
   },
-  changeProfile: (newProfile: ProfileType) => set({ profile: newProfile }),
+  changeProfile: (newProfile: {
+    user: ProfileType;
+    languages: LanguageType[];
+  }) => set({ profile: newProfile }),
 }));

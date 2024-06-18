@@ -35,9 +35,10 @@ func New() *Config {
 		ClientID:     os.Getenv("GOOGLEID"),
 		ClientSecret: os.Getenv("GOOGLESECRET"),
 		RedirectURL:  os.Getenv("GOOGLE_REDIRECT_URL"),
-		Scopes:       []string{"profile", "email"},
+		Scopes:       []string{"profile", "email", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email"},
 		Endpoint:     google.Endpoint,
 	}
+
 	return &Config{
 		Mode:         Mode, // dev, prod
 		Port:         os.Getenv("APP_PORT"),

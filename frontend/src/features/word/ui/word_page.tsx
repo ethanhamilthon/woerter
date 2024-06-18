@@ -1,14 +1,15 @@
 import { GetWord } from "@/api/word";
-import { CardType, Header } from "@/features/home";
+import { Header } from "@/features/home";
 import { getCookieValue } from "@/utils/cookie_get";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Pencil } from "lucide-react";
+import { WordType } from "@/features/home/store/card_store";
 
 export function WordPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [word, setWord] = useState<CardType | null>(null);
+  const [word, setWord] = useState<WordType | null>(null);
   useEffect(() => {
     const token = getCookieValue("Authorization");
     if (token === null) {

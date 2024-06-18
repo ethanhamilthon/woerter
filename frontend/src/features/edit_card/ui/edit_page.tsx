@@ -1,5 +1,6 @@
 import { DeleteWord, GetWord, UpdateWord } from "@/api/word";
-import { CardType, Header } from "@/features/home";
+import { Header } from "@/features/home";
+import { WordType } from "@/features/home/store/card_store";
 import { getCookieValue } from "@/utils/cookie_get";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -10,7 +11,7 @@ export function EditPage() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const navigate = useNavigate();
-  const [word, setWord] = useState<CardType | null>(null);
+  const [word, setWord] = useState<WordType | null>(null);
 
   function Update() {
     const token = getCookieValue("Authorization");

@@ -11,11 +11,17 @@ import (
 )
 
 type WordBodyDTO struct {
-	ID             string `db:"id" json:"id"`
-	Title          string `db:"title" json:"title"`
-	Description    string `db:"description" json:"description"`
-	TargetLanguage string `db:"target_language" json:"target_language"`
-	OSLanguage     string `db:"os_language" json:"os_language"`
+	ID           string `db:"id" json:"id"`
+	Title        string `db:"title" json:"title"`
+	Description  string `db:"description" json:"description"`
+	FromLanguage string `db:"from_language" json:"from_language"`
+	ToLanguage   string `db:"to_language" json:"to_language"`
+	Type         string `db:"type" json:"type"`
+}
+
+type WordAllResDTO struct {
+	Language string               `json:"language"`
+	Words    []repository.WordDTO `json:"words"`
 }
 
 func (h *Handler) WordGetAll(w http.ResponseWriter, r *http.Request) {
@@ -25,15 +31,38 @@ func (h *Handler) WordGetAll(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
+
 	UserID, err := uuid.Parse(claims.UserID)
 	if err != nil {
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
+	languages, err := h.repo.LanguagesLoad(UserID)
+	if err != nil {
+		http.Error(w, "Something went wrong", http.StatusBadRequest)
+		return
+	}
 
 	words, err := h.repo.WordLoadAll(UserID)
+	if err != nil {
+		http.Error(w, "Something went wrong", http.StatusBadRequest)
+		return
+	}
+
+	var languagedWords []WordAllResDTO
+	for _, lang := range languages {
+		lw := WordAllResDTO{}
+		lw.Words = make([]repository.WordDTO, 0)
+		lw.Language = lang.LanguageName
+		for _, word := range words {
+			if word.ToLanguage == lw.Language {
+				lw.Words = append(lw.Words, word)
+			}
+		}
+		languagedWords = append(languagedWords, lw)
+	}
 	w.WriteHeader(http.StatusAccepted)
-	json.NewEncoder(w).Encode(words)
+	json.NewEncoder(w).Encode(languagedWords)
 }
 
 func (h *Handler) WordCreate(w http.ResponseWriter, r *http.Request) {
@@ -63,14 +92,15 @@ func (h *Handler) WordCreate(w http.ResponseWriter, r *http.Request) {
 
 	// Установка времени создания и обновления
 	newWord := repository.WordDTO{
-		ID:             ID,
-		Title:          word.Title,
-		Description:    word.Description,
-		TargetLanguage: word.TargetLanguage,
-		OSLanguage:     word.OSLanguage,
-		CreatedAt:      time.Now(),
-		UpdatedAt:      time.Now(),
-		UserID:         UserID,
+		ID:           ID,
+		Title:        word.Title,
+		Description:  word.Description,
+		FromLanguage: word.FromLanguage,
+		ToLanguage:   word.ToLanguage,
+		CreatedAt:    time.Now(),
+		UpdatedAt:    time.Now(),
+		UserID:       UserID,
+		Type:         word.Type,
 	}
 	err = h.repo.WordCreate(newWord)
 	if err != nil {
@@ -163,13 +193,13 @@ func (h *Handler) WordUpdate(w http.ResponseWriter, r *http.Request) {
 	ID, _ := uuid.Parse(word.ID)
 
 	newWord := repository.WordDTO{
-		ID:             ID,
-		UserID:         UserID,
-		Title:          word.Title,
-		Description:    word.Description,
-		TargetLanguage: word.TargetLanguage,
-		OSLanguage:     word.OSLanguage,
-		UpdatedAt:      time.Now(),
+		ID:           ID,
+		UserID:       UserID,
+		Title:        word.Title,
+		Description:  word.Description,
+		FromLanguage: word.FromLanguage,
+		ToLanguage:   word.ToLanguage,
+		UpdatedAt:    time.Now(),
 	}
 
 	err = h.repo.WordUpdate(newWord)

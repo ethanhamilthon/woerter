@@ -54,24 +54,29 @@ func (h *Handler) GoogleCallback(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 		return
 	}
+
+	fmt.Println(userInfo)
 	userEmail := userInfo["email"].(string)
-	userName := userInfo["name"].(string)
 	userAvatar := userInfo["picture"].(string)
+	userFullName := userInfo["name"].(string)        // полное имя пользователя
+	userFirstName := userInfo["given_name"].(string) // язык пользователя
 
 	user := repository.UserDTO{
-		ID:             uuid.New(),
-		Name:           userName,
-		Email:          userEmail,
-		Avatar:         userAvatar,
-		OSLanguage:     "",
-		TargetLanguage: "",
+		ID:       uuid.New(),
+		Name:     userFirstName,
+		FullName: userFullName,
+		Email:    userEmail,
+		Avatar:   userAvatar,
+		Language: "",
 	}
+
 	err = h.repo.UserCreate(user)
 	if err == nil {
 		id, _ := user.ID.MarshalText()
 		jwt, _ := utils.CreateJWT(string(id), userEmail)
 		SetCookies(w, time.Now().Add(24*time.Hour), "Authorization", jwt)
 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
+		fmt.Println("redirected")
 		return
 	}
 
@@ -85,6 +90,7 @@ func (h *Handler) GoogleCallback(w http.ResponseWriter, r *http.Request) {
 	jwt, _ := utils.CreateJWT(string(id), userEmail)
 	SetCookies(w, time.Now().Add(24*time.Hour), "Authorization", jwt)
 	http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
+	fmt.Println("redirected")
 }
 
 func (h *Handler) getUserInfo(token *oauth2.Token) (map[string]interface{}, error) {
@@ -117,6 +123,71 @@ func (h *Handler) MeGet(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "User not found", http.StatusNotFound)
 		return
 	}
+
+	UserID, err := uuid.Parse(claims.UserID)
+	if err != nil {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	languages, err := h.repo.LanguagesLoad(UserID)
+	if err != nil {
+		http.Error(w, "Something went wrong", http.StatusBadRequest)
+		return
+	}
+
+	data := map[string]interface{}{
+		"user":      user,
+		"languages": languages,
+	}
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(user)
+	json.NewEncoder(w).Encode(data)
+}
+
+type OnboardDTO struct {
+	OsLanguage      string   `json:"os_language"`
+	TargetLanguages []string `json:"target_languages"`
+}
+
+func (h *Handler) OnboardPatch(w http.ResponseWriter, r *http.Request) {
+	token := r.Header.Get("Authorization")
+	claims, err := utils.VerifyJWT(token)
+	if err != nil {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+	UserID, err := uuid.Parse(claims.UserID)
+	if err != nil {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+	var body OnboardDTO
+	decoder := json.NewDecoder(r.Body)
+	defer r.Body.Close() // Важно закрыть тело запроса после использования
+	err = decoder.Decode(&body)
+	if err != nil {
+		http.Error(w, "Incorrect body", http.StatusBadRequest)
+		return
+	}
+	err = h.repo.UserLanguageUpdate(UserID, body.OsLanguage)
+	if err != nil {
+		http.Error(w, "Something went wrong", http.StatusBadRequest)
+		return
+	}
+	newLanguages := make([]repository.LanguageDTO, 0, len(body.TargetLanguages))
+	for _, target := range body.TargetLanguages {
+		newLanguages = append(newLanguages, repository.LanguageDTO{
+			ID:           uuid.New(), // Генерация уникального идентификатора
+			UserID:       UserID,
+			LanguageName: target,
+			CreatedAt:    time.Now(), // Заполнение поля created_at текущим временем
+		})
+	}
+	err = h.repo.LanguagesCreate(newLanguages)
+	if err != nil {
+		http.Error(w, "Something went wrong", http.StatusBadRequest)
+		return
+	}
+
+	w.WriteHeader(http.StatusAccepted)
 }

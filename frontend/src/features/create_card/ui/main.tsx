@@ -1,30 +1,43 @@
 import { Header } from "@/features/home";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCardStore } from "@/features/home";
 import { v4 as uuidv4 } from "uuid";
 import { CreateWord } from "@/api/word";
 import { getCookieValue } from "@/utils/cookie_get";
 import { cn } from "@/utils/cn";
 import { Copy } from "lucide-react";
+import { TargetLanguages } from "@/assets/oslanguages";
+import { useAuthStore } from "@/features/auth";
+import { GetPrompt } from "@/assets/promptlanguages";
 
 export function CreateWordPage() {
+  const { lang } = useParams();
+  const navigate = useNavigate();
+  if (
+    lang === undefined ||
+    !TargetLanguages.map((tl) => tl.value).includes(lang)
+  ) {
+    navigate("/");
+  }
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const navigate = useNavigate();
   const { addCard } = useCardStore();
+  const { profile } = useAuthStore();
   const [tab, setTab] = useState<"self" | "ai">("self");
 
   async function Save() {
     const token = getCookieValue("Authorization");
+    if (!lang) return;
     const word = {
       id: uuidv4(),
       title: title,
       description: desc,
       created_at: "",
       updated_at: "",
-      target_language: "german",
-      os_language: "russain",
+      from_language: profile.user.language,
+      to_language: lang,
+      type: "self",
     };
     if (token === null) {
       return;
@@ -83,7 +96,7 @@ export function CreateWordPage() {
                 className="border border-zinc-300 rounded-xl pl-6 py-3 focus:outline focus:outline-purple-500"
               />
             ) : (
-              <GenerateAI title={title} />
+              <GenerateAI title={title} language={lang || ""} />
             )}
           </div>
           <div className="w-full flex justify-end items-center">
@@ -100,12 +113,11 @@ export function CreateWordPage() {
   );
 }
 
-function GenerateAI(props: { title: string }) {
-  const text = `Объясни мне что означает слово "${props.title}" на немецком. Ответ
-  нужен на русском. Сначала объясни в общем что это слово означает.
-  Потом сделай 3 предложение на немецком, и перевод на русском. И
-  объясни именно в контексте каждого предложение. Напиши коротко и
-  ясно, без воды. Ответ нужен без Markdown разметки.`;
+function GenerateAI(props: { title: string; language: string }) {
+  const text = GetPrompt(
+    props.title,
+    props.language === "german" ? "rus_ger" : "rus_eng"
+  );
   const copyToClipboard = () => {
     navigator.clipboard
       .writeText(text)

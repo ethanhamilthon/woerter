@@ -11,3 +11,7 @@ export function getCookieValue(key: string): string | null {
 
   return null;
 }
+
+export function deleteCookie(key: string): void {
+  document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+}

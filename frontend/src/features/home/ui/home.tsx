@@ -1,22 +1,27 @@
 import { LoginPage, useAuthStore } from "@/features/auth";
 import { Header } from "./header";
-import { CreateCard } from "./create_word";
+import { Top } from "./create_word";
 import { CardsList } from "./cards_list";
 import { GetAllWord } from "@/api/word";
 import { getCookieValue } from "@/utils/cookie_get";
 import { useCardStore } from "..";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 export function Home() {
-  const { state } = useAuthStore();
+  const { state, profile } = useAuthStore();
   const { setCards } = useCardStore();
+  const navigate = useNavigate();
+
+  if (state === "logged" && profile.languages.length === 0) {
+    navigate("/onboard");
+  }
 
   useQuery("words", async () => {
     const token = getCookieValue("Authorization");
     if (token === null) {
       return;
     }
-
     const data = await GetAllWord(token);
     setCards(data);
     return data;
@@ -30,7 +35,7 @@ export function Home() {
             <LoginPage />
           ) : (
             <>
-              <CreateCard />
+              <Top />
               <CardsList />
             </>
           )}

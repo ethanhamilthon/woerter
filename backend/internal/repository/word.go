@@ -8,8 +8,8 @@ import (
 
 func (repo *Repository) WordCreate(word WordDTO) error {
 	query := `
-    INSERT INTO words (id, title, description, target_language, os_language, created_at, updated_at, user_id)
-    VALUES (:id, :title, :description, :target_language, :os_language, :created_at, :updated_at, :user_id)
+    INSERT INTO words (id, title, description, from_language, to_language, created_at, updated_at, user_id)
+    VALUES (:id, :title, :description, :from_language, :to_language, :created_at, :updated_at, :user_id)
     `
 
 	_, err := repo.db.NamedExec(query, word)
@@ -22,7 +22,7 @@ func (repo *Repository) WordCreate(word WordDTO) error {
 
 func (repo *Repository) WordLoadAll(userID uuid.UUID) ([]WordDTO, error) {
 	query := `
-		SELECT id, title, description, target_language, os_language, created_at, updated_at, user_id
+		SELECT id, title, description, from_language, to_language, created_at, updated_at, user_id
 		FROM words
 		WHERE user_id = $1
     ORDER BY created_at DESC
@@ -39,7 +39,7 @@ func (repo *Repository) WordLoadAll(userID uuid.UUID) ([]WordDTO, error) {
 
 func (repo *Repository) WordLoad(userID uuid.UUID, ID uuid.UUID) (WordDTO, error) {
 	query := `
-  SELECT id, title, description, target_language, os_language, created_at, updated_at, user_id
+  SELECT id, title, description, from_language, to_language, created_at, updated_at, user_id
   FROM words
   WHERE id = $1 AND user_id = $2
   `
@@ -80,8 +80,8 @@ func (repo *Repository) WordUpdate(word WordDTO) error {
     UPDATE words
     SET title = :title,
         description = :description,
-        target_language = :target_language,
-        os_language = :os_language,
+        from_language = :from_language,
+        to_language = :to_language,
         updated_at = :updated_at
     WHERE id = :id AND user_id = :user_id
     `

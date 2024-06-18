@@ -15,13 +15,15 @@ export function Header() {
         {state === "logged" && (
           <div className="flex items-center gap-4">
             <img
-              src={profile.avatar}
-              alt={profile.name}
+              src={profile.user.avatar}
+              alt={profile.user.name}
               className="w-8 h-8 rounded-full bg-zinc-800"
             />
             <div className="flex flex-col">
-              <span className="font-bold">{profile.name}</span>
-              <span className="text-xs text-zinc-600">{profile.email}</span>
+              <span className="font-bold">{profile.user.full_name}</span>
+              <span className="text-xs text-zinc-600">
+                {profile.user.email}
+              </span>
             </div>
           </div>
         )}

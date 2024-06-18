@@ -3,6 +3,7 @@ import { Home } from "@/features/home";
 import { CreateWordPage } from "@/features/create_card";
 import { WordPage } from "@/features/word";
 import { EditPage } from "@/features/edit_card";
+import { Onboarding } from "@/features/onboarding";
 
 export const router = createBrowserRouter([
   {
@@ -10,7 +11,7 @@ export const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/create",
+    path: "/create/:lang",
     element: <CreateWordPage />,
   },
   {
@@ -20,5 +21,9 @@ export const router = createBrowserRouter([
   {
     path: "/edit/:id",
     element: <EditPage />,
+  },
+  {
+    path: "/onboard",
+    element: <Onboarding />,
   },
 ]);
