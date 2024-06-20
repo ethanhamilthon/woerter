@@ -20,6 +20,7 @@ type Config struct {
 	OAuthState   string
 	PgConnStr    string
 	JwtKey       string
+	OpenaiToken  string
 }
 
 func New() *Config {
@@ -50,5 +51,6 @@ func New() *Config {
 		OAuthState:   os.Getenv("OAUTH_STATE"),
 		PgConnStr:    os.Getenv("PG_CONN_STR"),
 		JwtKey:       os.Getenv("JWT_KEY"),
+		OpenaiToken:  os.Getenv("OPENAI_TOKEN"),
 	}
 }

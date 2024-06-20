@@ -13,18 +13,15 @@ export function Header() {
           Woerter
         </Link>
         {state === "logged" && (
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <img
               src={profile.user.avatar}
               alt={profile.user.name}
               className="w-8 h-8 rounded-full bg-zinc-800"
             />
-            <div className="flex flex-col">
-              <span className="font-bold">{profile.user.full_name}</span>
-              <span className="text-xs text-zinc-600">
-                {profile.user.email}
-              </span>
-            </div>
+            <span className="text-lg font-semibold text-zinc-700">
+              Hi, {profile.user.name}!
+            </span>
           </div>
         )}
       </div>

@@ -1,6 +1,5 @@
 import { LoginPage, useAuthStore } from "@/features/auth";
 import { Header } from "./header";
-import { Top } from "./create_word";
 import { CardsList } from "./cards_list";
 import { GetAllWord } from "@/api/word";
 import { getCookieValue } from "@/utils/cookie_get";
@@ -29,13 +28,12 @@ export function Home() {
   return (
     <>
       <Header key="header" />
-      <main className="flex justify-center mt-6 bg-white">
+      <main className="flex justify-center bg-white">
         <div className="container flex flex-col gap-8">
           {state === "noinfo" ? (
             <LoginPage />
           ) : (
             <>
-              <Top />
               <CardsList />
             </>
           )}

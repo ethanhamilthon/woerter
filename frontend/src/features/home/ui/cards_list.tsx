@@ -1,12 +1,33 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCardStore, CardType } from "..";
 import { Eye, ChevronDown, ChevronUp } from "lucide-react";
 import { WordType } from "../store/card_store";
 import { Capitalize } from "@/utils/string";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { cn } from "@/utils/cn";
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 export function CardsList() {
   const { cards } = useCardStore();
+  const query = useQuery();
+  const navigate = useNavigate();
+  const [currentTarget, setCurrentTarget] = useState("");
+  useEffect(() => {
+    if (cards !== undefined && cards !== null && cards.length !== 0) {
+      const target = query.get("target");
+      if (target === null) {
+        navigate("/?target=" + cards[0]?.language);
+        return;
+      }
+      if (!cards.map((card) => card.language).includes(target)) {
+        navigate("/?target=" + cards[0]?.language);
+      }
+      setCurrentTarget(target);
+    }
+  }, [cards, query]);
   if (cards === undefined || cards === null || cards.length === 0) {
     return (
       <div className="w-full flex items-center justify-center font-semibold h-32 text-3xl">
@@ -14,56 +35,56 @@ export function CardsList() {
       </div>
     );
   }
+
   return (
-    <div className="w-full flex flex-col gap-8 px-4">
+    <div className="w-full flex flex-col gap-4 px-4">
+      <div className="w-full items-center justify-between flex border-b border-b-zinc-100 sticky top-0 bg-white py-3">
+        <div className="flex items-center">
+          {cards.map((card) => {
+            return (
+              <Link
+                to={"/?target=" + card.language}
+                key={card.language}
+                className={cn("py-3 px-6 rounded-t-lg text-zinc-400", {
+                  "border-b-4 border-b-purple-600 text-zinc-800 font-medium":
+                    currentTarget === card.language,
+                })}
+              >
+                {Capitalize(card.language)}
+              </Link>
+            );
+          })}
+        </div>
+        <Link
+          to={"/ask/" + currentTarget}
+          className="flex justify-center font-medium text-sm  px-5 py-3 sm:py-3 sm:px-6 bg-purple-700 items-center text-white rounded-lg"
+        >
+          + Создать
+        </Link>
+      </div>
       {cards.map((card, i) => {
-        return <Card key={i} card={card} />;
+        return currentTarget === card.language ? (
+          <Card key={i} card={card} />
+        ) : null;
       })}
     </div>
   );
 }
 
 function Card(props: { card: CardType }) {
-  const [closed, setClose] = useState(false);
-  return (
-    <div className="w-full flex flex-col gap-3 p-4  border border-zinc-200 rounded-lg">
-      <div className="flex w-full items-center justify-between">
-        <div
-          className="flex items-center gap-2 cursor-pointer"
-          onClick={() => setClose((prev) => !prev)}
-        >
-          <span className="text-xl  font-semibold text-zinc-600">
-            {Capitalize(props.card.language)}
-          </span>
-          {closed ? (
-            <ChevronDown className="text-zinc-6000" />
-          ) : (
-            <ChevronUp className="text-zinc-6000" />
-          )}
-        </div>
-        <Link
-          to={"/create/" + props.card.language}
-          className="flex justify-center font-medium text-sm  px-5 py-3 sm:py-3 sm:px-6 bg-purple-700 items-center h-full text-white rounded-lg"
-        >
-          + Создать
-        </Link>
-      </div>
-      {!closed &&
-        (props.card.words && props.card.words.length !== 0 ? (
-          <div className="w-full flex flex-wrap gap-3">
-            {props.card.words.map((word, i) => {
-              return <Word key={i} word={word} />;
-            })}
-          </div>
-        ) : (
-          <div className="w-full min-h-48 flex justify-center items-center">
-            <span className="text-lg font-semibold text-zinc-600 text-center">
-              Тут пока пусто,
-              <br />
-              создайте новых слов 🤪
-            </span>
-          </div>
-        ))}
+  return props.card.words && props.card.words.length !== 0 ? (
+    <div className="w-full flex flex-wrap gap-3">
+      {props.card.words.map((word, i) => {
+        return <Word key={i} word={word} />;
+      })}
+    </div>
+  ) : (
+    <div className="w-full min-h-48 flex justify-center items-center">
+      <span className="text-lg font-semibold text-zinc-600 text-center">
+        Тут пока пусто,
+        <br />
+        создайте новых слов 🤪
+      </span>
     </div>
   );
 }

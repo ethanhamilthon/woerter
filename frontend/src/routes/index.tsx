@@ -4,6 +4,7 @@ import { CreateWordPage } from "@/features/create_card";
 import { WordPage } from "@/features/word";
 import { EditPage } from "@/features/edit_card";
 import { Onboarding } from "@/features/onboarding";
+import { AskPage } from "@/features/ask";
 
 export const router = createBrowserRouter([
   {
@@ -25,5 +26,9 @@ export const router = createBrowserRouter([
   {
     path: "/onboard",
     element: <Onboarding />,
+  },
+  {
+    path: "/ask/:lang",
+    element: <AskPage />,
   },
 ]);

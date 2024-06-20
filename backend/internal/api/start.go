@@ -12,6 +12,7 @@ import (
 	"word/internal/handler"
 	"word/internal/middleware"
 	"word/internal/repository"
+	"word/internal/services"
 )
 
 func Start() {
@@ -32,8 +33,11 @@ func Start() {
 	repo.Migrate()
 	defer repo.CloseConnection()
 
+	//Инициализация сервисов
+	service := services.New()
+
 	//Инициализируем хендлеры
-	handler := handler.New(cfg, repo)
+	handler := handler.New(cfg, repo, service)
 
 	//Инициализация миддлвейров
 	m := middleware.New()
@@ -49,6 +53,7 @@ func Start() {
 	api.HandleFunc("/word/{id}", m.With(handler.WordLoad, m.Info))
 	api.HandleFunc("/word", m.With(handler.WordGetAll, m.Info))
 	api.HandleFunc("PATCH /onboard", m.With(handler.OnboardPatch, m.Info))
+	api.HandleFunc("/ask", handler.AskCreate)
 	handlers.Handle("/api/v1/", http.StripPrefix("/api/v1", api))
 
 	//Создаем пулл google oauth

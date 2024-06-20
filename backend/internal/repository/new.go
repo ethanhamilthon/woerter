@@ -1,6 +1,8 @@
 package repository
 
 import (
+	// "log"
+
 	"log"
 	"word/config"
 
