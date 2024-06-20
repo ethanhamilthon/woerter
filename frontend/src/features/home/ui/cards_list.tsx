@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCardStore, CardType } from "..";
-import { Eye, ChevronDown, ChevronUp } from "lucide-react";
+import { Eye } from "lucide-react";
 import { WordType } from "../store/card_store";
 import { Capitalize } from "@/utils/string";
 import { useEffect, useState } from "react";
