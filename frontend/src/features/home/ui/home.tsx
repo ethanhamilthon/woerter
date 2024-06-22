@@ -29,7 +29,7 @@ export function Home() {
     <>
       <Header key="header" />
       <main className="flex justify-center bg-white">
-        <div className="container flex flex-col gap-8">
+        <div className="container  flex flex-col gap-8">
           {state === "noinfo" ? (
             <LoginPage />
           ) : (

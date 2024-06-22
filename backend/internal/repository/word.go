@@ -8,8 +8,8 @@ import (
 
 func (repo *Repository) WordCreate(word WordDTO) error {
 	query := `
-    INSERT INTO words (id, title, description, from_language, to_language, created_at, updated_at, user_id)
-    VALUES (:id, :title, :description, :from_language, :to_language, :created_at, :updated_at, :user_id)
+    INSERT INTO words (id, title, description, from_language, to_language, type, created_at, updated_at, user_id)
+    VALUES (:id, :title, :description, :from_language, :to_language, :type, :created_at, :updated_at, :user_id)
     `
 
 	_, err := repo.db.NamedExec(query, word)

@@ -49,7 +49,7 @@ export function CreateWordPage() {
   return (
     <>
       <Header key="header" />
-      <main className="flex justify-center bg-white mt-6 w-full px-4">
+      <main className="flex justify-center bg-white mt-6 w-full">
         <div className="container flex flex-col gap-12">
           <div className="w-full flex flex-col gap-4 ">
             <span className="font-medium">Ваше слово</span>

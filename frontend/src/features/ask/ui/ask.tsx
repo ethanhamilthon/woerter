@@ -69,7 +69,7 @@ export function AskPage() {
   return (
     <>
       <Header />
-      <main className="flex w-full px-4 justify-center mt-12">
+      <main className="flex w-full justify-center mt-12">
         <div className="container flex flex-col gap-12">
           {!requested && (
             <div className="w-full flex flex-col gap-4 ">

@@ -25,16 +25,8 @@ type WordAllResDTO struct {
 }
 
 func (h *Handler) WordGetAll(w http.ResponseWriter, r *http.Request) {
-	token := r.Header.Get("Authorization")
-	claims, err := utils.VerifyJWT(token)
+	UserID, _, err := utils.CheckHttpToken(w, r)
 	if err != nil {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
-		return
-	}
-
-	UserID, err := uuid.Parse(claims.UserID)
-	if err != nil {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
 	languages, err := h.repo.LanguagesLoad(UserID)
@@ -66,13 +58,10 @@ func (h *Handler) WordGetAll(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) WordCreate(w http.ResponseWriter, r *http.Request) {
-	token := r.Header.Get("Authorization")
-	claims, err := utils.VerifyJWT(token)
+	UserID, _, err := utils.CheckHttpToken(w, r)
 	if err != nil {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
-
 	var word WordBodyDTO
 	decoder := json.NewDecoder(r.Body)
 	defer r.Body.Close() // Важно закрыть тело запроса после использования
@@ -82,12 +71,6 @@ func (h *Handler) WordCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Установка поля UserID из claims
-	UserID, err := uuid.Parse(claims.UserID)
-	if err != nil {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
-		return
-	}
 	ID, _ := uuid.Parse(word.ID)
 
 	// Установка времени создания и обновления
@@ -112,18 +95,7 @@ func (h *Handler) WordCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) WordLoad(w http.ResponseWriter, r *http.Request) {
-	token := r.Header.Get("Authorization")
-	claims, err := utils.VerifyJWT(token)
-	if err != nil {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
-		return
-	}
-	UserID, err := uuid.Parse(claims.UserID)
-	if err != nil {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
-		return
-	}
-
+	UserID, _, err := utils.CheckHttpToken(w, r)
 	ID, err := uuid.Parse(r.PathValue("id"))
 	if err != nil {
 		http.Error(w, "Invalid ID", http.StatusUnauthorized)
@@ -141,18 +113,10 @@ func (h *Handler) WordLoad(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) WordDelete(w http.ResponseWriter, r *http.Request) {
-	token := r.Header.Get("Authorization")
-	claims, err := utils.VerifyJWT(token)
+	UserID, _, err := utils.CheckHttpToken(w, r)
 	if err != nil {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
-	UserID, err := uuid.Parse(claims.UserID)
-	if err != nil {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
-		return
-	}
-
 	ID, err := uuid.Parse(r.PathValue("id"))
 	if err != nil {
 		http.Error(w, "Invalid ID", http.StatusUnauthorized)
@@ -168,13 +132,10 @@ func (h *Handler) WordDelete(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) WordUpdate(w http.ResponseWriter, r *http.Request) {
-	token := r.Header.Get("Authorization")
-	claims, err := utils.VerifyJWT(token)
+	UserID, _, err := utils.CheckHttpToken(w, r)
 	if err != nil {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
-
 	var word WordBodyDTO
 	decoder := json.NewDecoder(r.Body)
 	defer r.Body.Close() // Важно закрыть тело запроса после использования
@@ -184,12 +145,6 @@ func (h *Handler) WordUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Установка поля UserID из claims
-	UserID, err := uuid.Parse(claims.UserID)
-	if err != nil {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
-		return
-	}
 	ID, _ := uuid.Parse(word.ID)
 
 	newWord := repository.WordDTO{

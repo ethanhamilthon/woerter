@@ -74,7 +74,7 @@ func (h *Handler) GoogleCallback(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		id, _ := user.ID.MarshalText()
 		jwt, _ := utils.CreateJWT(string(id), userEmail)
-		SetCookies(w, time.Now().Add(24*time.Hour), "Authorization", jwt)
+		SetCookies(w, time.Now().Add(24*30*time.Hour), "Authorization", jwt)
 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 		fmt.Println("redirected")
 		return
@@ -88,7 +88,7 @@ func (h *Handler) GoogleCallback(w http.ResponseWriter, r *http.Request) {
 
 	id, _ := user.ID.MarshalText()
 	jwt, _ := utils.CreateJWT(string(id), userEmail)
-	SetCookies(w, time.Now().Add(24*time.Hour), "Authorization", jwt)
+	SetCookies(w, time.Now().Add(24*30*time.Hour), "Authorization", jwt)
 	http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 	fmt.Println("redirected")
 }

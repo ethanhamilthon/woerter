@@ -54,6 +54,7 @@ func Start() {
 	api.HandleFunc("/word", m.With(handler.WordGetAll, m.Info))
 	api.HandleFunc("PATCH /onboard", m.With(handler.OnboardPatch, m.Info))
 	api.HandleFunc("/ask", handler.AskCreate)
+	api.HandleFunc("/play", m.With(handler.PlayWordsGet, m.Info))
 	handlers.Handle("/api/v1/", http.StripPrefix("/api/v1", api))
 
 	//Создаем пулл google oauth

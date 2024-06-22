@@ -21,18 +21,10 @@ type AskDTO struct {
 }
 
 func (h *Handler) AskCreate(w http.ResponseWriter, r *http.Request) {
-	token := r.Header.Get("Authorization")
-	claims, err := utils.VerifyJWT(token)
+	UserID, _, err := utils.CheckHttpToken(w, r)
 	if err != nil {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
-	UserID, err := uuid.Parse(claims.UserID)
-	if err != nil {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
-		return
-	}
-
 	var askparams AskDTO
 	decoder := json.NewDecoder(r.Body)
 	defer r.Body.Close() // Важно закрыть тело запроса после использования
