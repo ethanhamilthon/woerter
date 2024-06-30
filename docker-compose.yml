@@ -1,16 +1,6 @@
 version: '3.8'
 
 services:
-  backend:
-    build:
-      context: .
-      target: backend
-    container_name: go_app
-    ports:
-      - "8080:8080"
-    environment:
-      - ACT_MODE=${ACT_MODE}
-
   nginx:
     build:
       context: .
@@ -19,8 +9,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    depends_on:
-      - backend
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - /etc/letsencrypt:/etc/letsencrypt
@@ -31,4 +19,3 @@ services:
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
     entrypoint: /bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'
-

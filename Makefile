@@ -1,5 +1,5 @@
 run:
-	./scripts/run.sh
+	./devrun.sh
 
 fmt:
 	cd backend && go fmt ./...

@@ -1,40 +1,31 @@
-# 1. Build Backend
-FROM golang:1.22-alpine AS builder-backend
-
-WORKDIR /build
-COPY backend/go.mod backend/go.sum ./  
-RUN go mod download                    
-
-COPY backend/ ./                   
-RUN go build -o /build/word cmd/main.go
-
-# 2. Build Frontend
-FROM node:20 as builder-frontend
-WORKDIR /frontend
+# 1. Build App
+FROM node:20 as builder-app
+WORKDIR /app
 
 RUN npm install -g pnpm
-COPY frontend/pnpm-lock.yaml frontend/package.json ./
+COPY app/pnpm-lock.yaml app/package.json ./
 RUN pnpm install
 
-COPY frontend/ .
+COPY app/ .
 RUN pnpm run build
 
-# 3. Run Backend
-FROM gcr.io/distroless/base-debian12 AS backend
+# 1. Build Landing
+FROM node:20 as builder-landing
+WORKDIR /landing
 
-WORKDIR /app
-COPY --from=builder-backend /build/word .
-COPY .env /app/.env
-ENV ACT_MODE="prod"
+RUN npm install -g pnpm
+COPY landing/pnpm-lock.yaml landing/package.json ./
+RUN pnpm install
 
-CMD ["./word"]
+COPY landing/ .
+RUN pnpm run build
 
-# 4. Nginx
+# 2. Nginx
 FROM nginx:alpine AS nginx
 
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder-frontend /frontend/dist /usr/share/nginx/html
-COPY --from=builder-frontend /frontend/dist /usr/share/nginx/html/word
+COPY --from=builder-app /app/dist /usr/share/nginx/html/app
+COPY --from=builder-landing /landing/dist /usr/share/nginx/html/landing
 
 # 5. Certbot (Let's Encrypt)
 FROM certbot/certbot AS certbot
