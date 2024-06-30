@@ -33,7 +33,7 @@ export function Onboarding() {
       return;
     }
     queryClient.invalidateQueries("getme");
-    navigate("/app");
+    navigate("/app?state=done");
   }
   return (
     <main className="flex justify-center container flex-col gap-8 py-12">

@@ -24,6 +24,7 @@ type IAuth = {
     user: ProfileType;
     languages: LanguageType[];
   }) => void;
+  cleanUser: () => void;
 };
 
 export const useAuthStore = create<IAuth>((set) => ({
@@ -43,4 +44,18 @@ export const useAuthStore = create<IAuth>((set) => ({
     user: ProfileType;
     languages: LanguageType[];
   }) => set({ profile: newProfile }),
+  cleanUser: () =>
+    set({
+      profile: {
+        user: {
+          name: "",
+          full_name: "",
+          email: "",
+          avatar: "",
+          language: "",
+        },
+        languages: [],
+      },
+      state: "noinfo",
+    }),
 }));

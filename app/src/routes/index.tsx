@@ -7,15 +7,20 @@ import { Onboarding } from "@/features/onboarding";
 import { AskPage } from "@/features/ask";
 import { GoPlayPage, PlayPage } from "@/features/play";
 import { ProfilePage } from "@/features/profile";
+import { AuthProvider, LoginPage } from "@/features/auth";
 
 export const router = createBrowserRouter([
   {
+    path: "/app/login",
+    element: <LoginPage />,
+  },
+  {
     path: "/",
     element: (
-      <>
+      <AuthProvider>
         <Header />
         <Outlet />
-      </>
+      </AuthProvider>
     ),
     children: [
       {

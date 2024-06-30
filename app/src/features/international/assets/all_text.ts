@@ -3,16 +3,6 @@ import { OsLanguageValues } from "../store/langs";
 export type LanguageText = {
   value: OsLanguageValues;
   t: {
-    LAND: {
-      H1_P1: string;
-      H1_P2: string;
-      H1_P3: string;
-      T1_P1: string;
-      T1_P2: string;
-      B1: string;
-      B2: string;
-      H2: string;
-    };
     WORD: {
       CREATE: string;
       SHOW_FULL: string;
@@ -35,6 +25,17 @@ export type LanguageText = {
       ANOTHER_P3: string;
       ANOTHER_B1: string;
     };
+    ASK: {
+      B1: string;
+      B2: string;
+      SELF: string;
+      YOUR_LANG: string;
+    };
+    LOGIN: {
+      WELCOME: string;
+      NEXT: string;
+      GOOGLE: string;
+    };
   };
 };
 
@@ -42,16 +43,6 @@ export const Texts: LanguageText[] = [
   {
     value: "russian",
     t: {
-      LAND: {
-        H1_P1: "Запомни слова",
-        H1_P2: "навсегда",
-        H1_P3: "через ИИ!",
-        T1_P1: "Лучший ИИ сервис для изучение",
-        T1_P2: "другого языка. Начни сейчас бесплатно!",
-        B1: "Попробвать",
-        B2: "Перейти",
-        H2: "Ты сможешь!",
-      },
       WORD: {
         CREATE: "Создать",
         SHOW_FULL: "Показать",
@@ -77,21 +68,22 @@ export const Texts: LanguageText[] = [
         ANOTHER_P3: "Вы выбрали: ",
         ANOTHER_B1: "Сохранить",
       },
+      ASK: {
+        B1: "Генерировать",
+        B2: "Перейти к слову",
+        SELF: "Сам напишу",
+        YOUR_LANG: "Ваш язык:",
+      },
+      LOGIN: {
+        WELCOME: "Добро пожаловать!",
+        NEXT: "Пожалуйста, пройдите через Google, чтобы дальше изучать 👀",
+        GOOGLE: "Зайти через Google",
+      },
     },
   },
   {
     value: "english",
     t: {
-      LAND: {
-        H1_P1: "Remember a word",
-        H1_P2: "forever",
-        H1_P3: "with our new AI!",
-        T1_P1: "The best AI service for learning",
-        T1_P2: "another language. Start now for free!",
-        B1: "Let's try",
-        B2: "Go to account",
-        H2: "You are also able",
-      },
       WORD: {
         CREATE: "Create",
         SHOW_FULL: "Show full",
@@ -115,6 +107,17 @@ export const Texts: LanguageText[] = [
         ANOTHER_P2: "You haven't selected anything yet.",
         ANOTHER_P3: "You have selected: ",
         ANOTHER_B1: "Save",
+      },
+      ASK: {
+        B1: "Generate",
+        B2: "Go to the word",
+        SELF: "Write myself",
+        YOUR_LANG: "Your language:",
+      },
+      LOGIN: {
+        WELCOME: "Welcome back!",
+        NEXT: "Please, sign up with google to go further 👀",
+        GOOGLE: "Sign up with Google",
       },
     },
   },

@@ -1,0 +1,22 @@
+---
+interface Props {
+  name: string;
+  words: number;
+  text: string;
+  emoji: string;
+}
+const {name, words, text, emoji} = Astro.props
+---
+
+<div class="flex-1 min-w-72 bg-white border border-zinc-300 rounded-xl flex flex-col p-3 gap-3 relative">
+  <span class="text-4xl absolute -top-3 -right-3 transform -rotate-12">
+    {emoji}
+  </span>
+  <p class="text-xs font-light text-zinc-500">{text}</p>
+  <div class="w-full flex justify-between">
+    <span class="font-medium text-zinc-700">{name}</span>
+    <span class="text-sm font-light text-zinc-700">
+      {words} слов.
+    </span>
+  </div>
+</div>

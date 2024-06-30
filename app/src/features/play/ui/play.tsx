@@ -45,7 +45,9 @@ export function PlayPage() {
   }
 
   useEffect(() => {
-    setLang(profile.languages[0].name);
+    if (profile.languages[0]) {
+      setLang(profile.languages[0].name);
+    }
   }, [profile]);
   //TODO: Добавить выбор языка, по нему автоматический count, Добавить примерную времю который займет повтор
   return (

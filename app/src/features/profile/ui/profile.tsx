@@ -1,8 +1,17 @@
 import { useAuthStore } from "@/features/auth";
+import { deleteCookie } from "@/utils/cookie_get";
 import { Capitalize } from "@/utils/string";
+import { useNavigate } from "react-router-dom";
 
 export function ProfilePage() {
   const { profile } = useAuthStore();
+  const { cleanUser } = useAuthStore();
+  const navigate = useNavigate();
+  function Logout() {
+    deleteCookie("Authorization");
+    cleanUser();
+    navigate("/app");
+  }
   return (
     <main className="container flex flex-col items-center justify-center p-16 py-8 gap-6">
       <img
@@ -34,6 +43,12 @@ export function ProfilePage() {
       <span className="text-lg font-medium text-zinc-600 mt-12">
         Язык системы: {Capitalize(profile.user.language)}
       </span>
+      <button
+        onClick={Logout}
+        className="px-6 py-3 bg-red-600 text-white rounded-lg"
+      >
+        Выйти из системы
+      </button>
     </main>
   );
 }
