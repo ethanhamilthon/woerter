@@ -1,5 +1,5 @@
 import { useI8 } from "@/features/international";
-import { getCookieValue } from "@/utils/cookie_get";
+import { getCookieValue } from "@/utils/cookie";
 import { Navigate } from "react-router-dom";
 
 export function LoginPage() {

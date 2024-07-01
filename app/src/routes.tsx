@@ -1,5 +1,5 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
-import { Header, Home } from "@/features/home";
+import { Home } from "@/features/home";
 import { CreateWordPage } from "@/features/create_card";
 import { WordPage } from "@/features/word";
 import { EditPage } from "@/features/edit_card";
@@ -7,7 +7,8 @@ import { Onboarding } from "@/features/onboarding";
 import { AskPage } from "@/features/ask";
 import { GoPlayPage, PlayPage } from "@/features/play";
 import { ProfilePage } from "@/features/profile";
-import { AuthProvider, LoginPage } from "@/features/auth";
+import { LoginPage } from "@/features/login";
+import { AuthProvider, Header } from "./features/common";
 
 export const router = createBrowserRouter([
   {

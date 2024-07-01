@@ -1,6 +1,6 @@
-import { useAuthStore } from "@/features/auth";
+import { useAuthStore } from "@/features/common";
 import { useI8 } from "@/features/international";
-import { getCookieValue } from "@/utils/cookie_get";
+import { getCookieValue } from "@/utils/cookie";
 import { Capitalize } from "@/utils/string";
 import { useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";

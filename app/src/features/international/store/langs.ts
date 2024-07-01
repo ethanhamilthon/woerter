@@ -1,29 +1,6 @@
 import { create } from "zustand";
 import { LanguageText, Texts } from "../assets/all_text";
-
-type Language = {
-  value: string;
-  short: string;
-  text: string;
-  icon: string;
-};
-
-export const OsLanguages: Language[] = [
-  {
-    value: "russian",
-    short: "RU",
-    text: "Русский язык",
-    icon: "russian.png",
-  },
-  {
-    value: "english",
-    short: "EN",
-    text: "English",
-    icon: "english.png",
-  },
-];
-
-export type OsLanguageValues = "russian" | "english";
+import { OsLanguageValues } from "../assets/languages";
 
 type II8 = {
   currentLang: OsLanguageValues;

@@ -5,44 +5,44 @@ import { v4 as uuidv4 } from "uuid";
 import { CreateWord } from "@/api/word";
 import { cn } from "@/utils/cn";
 import { Copy } from "lucide-react";
-import { TargetLanguages } from "@/assets/oslanguages";
-import { useAuthStore } from "@/features/auth";
-import { GetPrompt } from "@/assets/promptlanguages";
+import { useAuthStore } from "@/features/common";
+import { useI8 } from "@/features/international";
 
 export function CreateWordPage() {
   const { lang } = useParams();
   const navigate = useNavigate();
-  if (
-    lang === undefined ||
-    !TargetLanguages.map((tl) => tl.value).includes(lang)
-  ) {
-    return <Navigate to="/app" />;
-  }
+  const { profile } = useAuthStore();
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const { addCard } = useCardStore();
-  const { profile } = useAuthStore();
   const [tab, setTab] = useState<"self" | "ai">("self");
 
   async function Save() {
-    if (!lang) return;
-    const word = {
-      id: uuidv4(),
-      title: title,
-      description: desc,
-      created_at: "",
-      updated_at: "",
-      from_language: profile.user.language,
-      to_language: lang,
-      type: "self",
-    };
-    try {
-      const data = await CreateWord(word);
-      addCard(data);
-      navigate("/app");
-    } catch (error) {
-      console.log(error);
+    if (lang !== undefined) {
+      const word = {
+        id: uuidv4(),
+        title: title,
+        description: desc,
+        created_at: "",
+        updated_at: "",
+        from_language: profile.user.language,
+        to_language: lang,
+        type: "self",
+      };
+      try {
+        const data = await CreateWord(word);
+        addCard(data);
+        navigate("/app");
+      } catch (error) {
+        console.log(error);
+      }
     }
+  }
+  if (
+    lang === undefined ||
+    !profile.languages.map((tl) => tl.name).includes(lang)
+  ) {
+    return <Navigate to="/app" />;
   }
   return (
     <main className="flex flex-col gap-12 container justify-center bg-white mt-6 w-full">
@@ -107,13 +107,27 @@ export function CreateWordPage() {
 }
 
 function GenerateAI(props: { title: string; language: string }) {
-  const text = GetPrompt(
-    props.title,
-    props.language === "german" ? "rus_ger" : "rus_eng"
-  );
+  const { t } = useI8();
+
+  function GetText() {
+    switch (props.language) {
+      case "english":
+        return t.СREATE.P_EN;
+
+      case "german":
+        return t.СREATE.P_DE;
+      default:
+        return t.СREATE.P_EN;
+    }
+  }
+
+  function GetPrompt() {
+    let regex = /\[\[.*?\]\]/g;
+    return GetText().replace(regex, props.title);
+  }
   const copyToClipboard = () => {
     navigator.clipboard
-      .writeText(text)
+      .writeText(GetPrompt())
       .then(() => {
         console.log("Text copied to clipboard");
       })
@@ -132,7 +146,7 @@ function GenerateAI(props: { title: string; language: string }) {
           >
             <Copy size={20} />
           </div>
-          <p className="text-zinc-500">{text}</p>
+          <p className="text-zinc-500">{GetPrompt()}</p>
         </div>
       </div>
       <div className="w-full flex flex-col gap-2">

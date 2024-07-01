@@ -1,4 +1,4 @@
-import { getCookieValue } from "@/utils/cookie_get";
+import { getCookieValue } from "@/utils/cookie";
 
 export function getToken() {
   const token = getCookieValue("Authorization");

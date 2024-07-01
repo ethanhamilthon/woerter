@@ -1,6 +1,6 @@
-import { useAuthStore } from "@/features/auth";
-import React, { useLayoutEffect } from "react";
+import { ReactNode, useLayoutEffect } from "react";
 import { useI8 } from "..";
+import { useAuthStore } from "@/features/common";
 
 function GetOSLang(state: string, userLanguage: string) {
   if (state !== "logged" || userLanguage === "") {
@@ -17,7 +17,7 @@ function GetOSLang(state: string, userLanguage: string) {
   return navigator.language.substring(0, 2);
 }
 
-export function I8Provider(props: { children: React.ReactNode }) {
+export function I8Provider(props: { children: ReactNode }) {
   const { state, profile } = useAuthStore();
   const { setLanguage } = useI8();
   useLayoutEffect(() => {

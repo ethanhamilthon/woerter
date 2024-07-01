@@ -1,4 +1,4 @@
-import { WordType } from "@/features/home/store/card_store";
+import { WordType } from "@/types/words";
 import { create } from "zustand";
 
 export type PlayType = {

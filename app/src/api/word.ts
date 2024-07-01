@@ -1,6 +1,4 @@
-import { CardType } from "@/features/home";
-import { WordType } from "@/features/home/store/card_store";
-
+import { CardType, WordType } from "@/types/words";
 import { getToken } from "./get_token";
 
 export async function CreateWord(word: WordType) {

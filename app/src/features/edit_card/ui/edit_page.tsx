@@ -1,5 +1,5 @@
 import { DeleteWord, GetWord, UpdateWord } from "@/api/word";
-import { WordType } from "@/features/home/store/card_store";
+import { WordType } from "@/types/words";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -11,41 +11,47 @@ export function EditPage() {
   const navigate = useNavigate();
   const [word, setWord] = useState<WordType | null>(null);
 
-  function Update() {
-    if (word === null) {
-      return;
-    }
-    const newWord = word;
-    newWord.title = title;
-    newWord.description = desc;
-    UpdateWord(newWord).then((req) => {
-      if (req.ok) {
+  async function Update() {
+    if (word !== null) {
+      try {
+        const newWord = word;
+        newWord.title = title;
+        newWord.description = desc;
+        await UpdateWord(newWord);
         navigate("/app/dic/" + id);
+      } catch (error) {
+        console.log(error);
       }
-    });
+    }
   }
 
-  function Delete() {
-    if (word === null) {
-      return;
-    }
-
-    DeleteWord(word.id).then((req) => {
-      if (req.ok) {
+  async function Delete() {
+    if (word !== null) {
+      try {
+        await DeleteWord(word.id);
         navigate("/app");
+      } catch (error) {
+        console.log(error);
       }
-    });
+    }
+  }
+
+  async function Initial() {
+    if (id !== undefined) {
+      try {
+        const word = await GetWord(id);
+        setWord(word);
+        setTitle(word.title);
+        setDesc(word.description);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      navigate("/app");
+    }
   }
   useEffect(() => {
-    if (id === undefined) {
-      navigate("/app");
-      return;
-    }
-    GetWord(id).then((data) => {
-      setWord(data);
-      setTitle(data.title);
-      setDesc(data.description);
-    });
+    Initial();
   }, []);
   return (
     <main className="container flex flex-col gap-12 justify-center bg-white mt-6">

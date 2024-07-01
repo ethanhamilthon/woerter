@@ -1,7 +1,7 @@
-import { useAuthStore } from "@/features/auth";
 import { Link, useLocation } from "react-router-dom";
 import { Play, Swords, CircleUserRound } from "lucide-react";
 import { cn } from "@/utils/cn";
+import { useAuthStore } from "..";
 
 export function Header() {
   const { profile, state } = useAuthStore();

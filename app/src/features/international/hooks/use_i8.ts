@@ -1,4 +1,5 @@
-import { OsLanguageValues, useI8Store } from "../store/langs";
+import { OsLanguageValues } from "../assets/languages";
+import { useI8Store } from "../store/langs";
 
 export function useI8() {
   const { currentLang, text, setLang } = useI8Store();

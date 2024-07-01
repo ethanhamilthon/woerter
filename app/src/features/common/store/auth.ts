@@ -1,17 +1,5 @@
+import { LanguageType, ProfileType, StateType } from "@/types/user";
 import { create } from "zustand";
-
-type StateType = "logged" | "loading" | "noinfo";
-export type ProfileType = {
-  name: string;
-  full_name: string;
-  email: string;
-  avatar: string;
-  language: string;
-};
-
-export type LanguageType = {
-  name: string;
-};
 
 type IAuth = {
   state: StateType;
@@ -32,11 +20,13 @@ export const useAuthStore = create<IAuth>((set) => ({
   changeState: (newState: StateType) => set({ state: newState }),
   profile: {
     user: {
+      id: "",
       name: "",
       full_name: "",
       email: "",
       avatar: "",
       language: "",
+      created_at: "",
     },
     languages: [],
   },
@@ -48,11 +38,13 @@ export const useAuthStore = create<IAuth>((set) => ({
     set({
       profile: {
         user: {
+          id: "",
           name: "",
           full_name: "",
           email: "",
           avatar: "",
           language: "",
+          created_at: "",
         },
         languages: [],
       },

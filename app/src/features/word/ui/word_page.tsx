@@ -2,20 +2,25 @@ import { GetWord } from "@/api/word";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Pencil } from "lucide-react";
-import { WordType } from "@/features/home/store/card_store";
+import { WordType } from "@/types/words";
 
 export function WordPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [word, setWord] = useState<WordType | null>(null);
-  useEffect(() => {
-    if (id === undefined) {
-      navigate("/app");
-      return;
+  async function Initial() {
+    try {
+      if (id !== undefined) {
+        const word = await GetWord(id);
+        setWord(word);
+      }
+    } catch (error) {
+      console.log(error);
+      navigate("/app/");
     }
-    GetWord(id).then((data) => {
-      setWord(data);
-    });
+  }
+  useEffect(() => {
+    Initial();
   }, []);
   return (
     <>

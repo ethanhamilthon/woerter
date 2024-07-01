@@ -1,11 +1,10 @@
-import { useAuthStore } from "@/features/auth";
-import { deleteCookie } from "@/utils/cookie_get";
+import { useAuthStore } from "@/features/common";
+import { deleteCookie } from "@/utils/cookie";
 import { Capitalize } from "@/utils/string";
 import { useNavigate } from "react-router-dom";
 
 export function ProfilePage() {
-  const { profile } = useAuthStore();
-  const { cleanUser } = useAuthStore();
+  const { profile, cleanUser } = useAuthStore();
   const navigate = useNavigate();
   function Logout() {
     deleteCookie("Authorization");

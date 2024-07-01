@@ -1,11 +1,11 @@
 import { OnboardUpdate } from "@/api/me";
 import { cn } from "@/utils/cn";
-import { getCookieValue } from "@/utils/cookie_get";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { queryClient } from "@/main";
-import { OsLanguages, TargetLanguages } from "@/assets/oslanguages";
+
 import { useI8 } from "@/features/international";
+import { OsLanguages, TargetLanguages } from "@/features/international";
 
 export function Onboarding() {
   const [step, setStep] = useState<"os" | "target">("os");
@@ -21,19 +21,16 @@ export function Onboarding() {
     if (osLang === "" || value.length === 0) {
       return;
     }
-    const token = getCookieValue("Authorization");
-    if (token === null) {
-      return;
+    try {
+      await OnboardUpdate({
+        os_language: osLang,
+        target_languages: value,
+      });
+      queryClient.invalidateQueries("getme");
+      navigate("/app?state=done");
+    } catch (error) {
+      console.log(error);
     }
-    const req = await OnboardUpdate({
-      os_language: osLang,
-      target_languages: value,
-    });
-    if (!req.ok) {
-      return;
-    }
-    queryClient.invalidateQueries("getme");
-    navigate("/app?state=done");
   }
   return (
     <main className="flex justify-center container flex-col gap-8 py-12">

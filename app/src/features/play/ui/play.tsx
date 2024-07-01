@@ -10,28 +10,23 @@ import { Capitalize } from "@/utils/string";
 import { usePlayStore } from "../store/play_store";
 import { GoPlayLoad } from "@/api/play";
 import { Navigate, useNavigate } from "react-router-dom";
-import { useMutation } from "react-query";
 import { useI8 } from "@/features/international";
-import { useAuthStore } from "@/features/auth";
+import { useAuthStore } from "@/features/common";
 
 export function PlayPage() {
   const { t } = useI8();
   const [count, setCount] = useState(10);
   const [lang, setLang] = useState("");
-
   const { profile } = useAuthStore();
   const { setCard, card } = usePlayStore();
   const navigate = useNavigate();
-  const mutation = useMutation({
-    mutationFn: async (body: { count: number; lang: string }) => {
-      return GoPlayLoad(body.count, body.lang);
-    },
-    mutationKey: ["getPlayData"],
-    onSuccess: (data) => {
+  async function LoadData() {
+    try {
+      const data = await GoPlayLoad(count, lang);
       setCard(data);
       navigate("/app/goplay");
-    },
-  });
+    } catch (error) {}
+  }
 
   if (card !== null) {
     return <Navigate to={"/app/goplay"} />;
@@ -103,10 +98,8 @@ export function PlayPage() {
         </SelectContent>
       </Select>
       <button
-        onClick={() => {
-          mutation.mutate({ count, lang });
-        }}
-        disabled={lang === "" || count < 10 || count > 50 || mutation.isLoading}
+        onClick={LoadData}
+        disabled={lang === "" || count < 10 || count > 50}
         className="bg-gradient-to-br mt-12 from-indigo-400 to-indigo-600 rounded-lg disabled:from-zinc-300 disabled:to-zinc-400 disabled:cursor-not-allowed text-white py-4 px-8"
       >
         {t.PLAY.GO}
