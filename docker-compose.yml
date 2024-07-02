@@ -23,7 +23,7 @@ services:
     entrypoint: /bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'
 
   go_app:
-    image: yerd:0.0.5
+    image: yerd:0.0.6
     container_name: go_app
     ports:
       - "8081:8081"

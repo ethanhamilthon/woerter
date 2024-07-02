@@ -33,10 +33,10 @@ export function CardLoading() {
         return (
           <div className="flex-1 min-w-56 h-44 bg-gray-100 rounded-2xl animate-pulse border border-zinc-200 p-2 flex flex-col justify-between">
             <div className="flex flex-col pt-2 gap-2">
-              <span className="text-lg font-medium rounded-lg bg-zinc-400 text-zinc-400 animate-pulse">
+              <span className="text-lg font-medium rounded-lg bg-zinc-200 text-zinc-200 animate-pulse">
                 Some title
               </span>
-              <p className="text-xs rounded-lg bg-zinc-400 text-zinc-400 animate-pulse line-clamp-3 whitespace-pre-line">
+              <p className="text-xs rounded-lg bg-zinc-200 text-zinc-200 animate-pulse line-clamp-3 whitespace-pre-line">
                 Some description
                 <br />
                 Some description
@@ -44,7 +44,7 @@ export function CardLoading() {
                 Some description
               </p>
             </div>
-            <div className="px-4 py-3 flex gap-2 justify-center items-center bg-zinc-400 text-zinc-400 animate-pulse rounded-lg ">
+            <div className="px-4 py-3 flex gap-2 justify-center items-center bg-zinc-200 text-zinc-200 animate-pulse rounded-lg ">
               <span>Some text</span>
             </div>
           </div>
@@ -57,7 +57,7 @@ export function CardLoading() {
 function Word(props: { word: WordType }) {
   const { t } = useI8();
   return (
-    <div className="flex-1 min-w-56 h-44 bg-gray-50 rounded-2xl border border-zinc-200 p-2 flex flex-col justify-between">
+    <div className="flex-1 min-w-72 h-44  rounded-2xl border border-zinc-200 p-2 flex flex-col justify-between">
       <div className="flex flex-col pt-2 pl-2">
         <span className="text-lg font-medium text-zinc-900">
           {props.word.title}
@@ -68,7 +68,7 @@ function Word(props: { word: WordType }) {
       </div>
       <Link
         to={"/app/dic/" + props.word.id}
-        className="px-4 py-3 flex gap-2 justify-center items-center  rounded-lg text-zinc-900 bg-white border border-zinc-200 hover:bg-zinc-200 duration-200"
+        className="px-4 py-3 flex gap-2 justify-center items-center  rounded-lg text-zinc-600 text-sm bg-white border border-zinc-200 hover:bg-zinc-100 duration-200"
       >
         <Eye />
         {t.WORD.SHOW_FULL}

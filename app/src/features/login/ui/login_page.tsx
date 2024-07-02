@@ -9,17 +9,19 @@ export function LoginPage() {
     return <Navigate to={"/app"} />;
   }
   return (
-    <main className="container pt-16">
-      <div className="w-full bg-zinc-50 rounded-lg p-4 py-12 flex flex-col items-center gap-12">
+    <main className="w-full h-dvh flex items-center justify-center bg-zinc-300">
+      <div className="w-5/6 sm:max-w-xl bg-white rounded-2xl p-4 py-8 flex flex-col items-center gap-12">
         <div className="flex flex-col gap-4 items-center">
-          <h2 className="text-2xl font-bold zinc-700">{t.LOGIN.WELCOME}</h2>
-          <span className="max-w-52 text-balance text-center font-light text-zinc-500">
+          <h2 className="text-lg sm:text-2xl font-bold zinc-700">
+            {t.LOGIN.WELCOME}
+          </h2>
+          <span className="text-balance md:max-w-64 text-center sm:text-base text-xs font-light text-zinc-500">
             {t.LOGIN.NEXT}
           </span>
         </div>
         <a
           href="/oauth/google/login"
-          className="flex p-3 gap-3  rounded-md bg-zinc-200 cursor-pointer hover:bg-zinc-300 duration-150"
+          className="flex p-3 gap-3 sm:text-base text-sm items-center justify-center sm:px-8 rounded-md bg-zinc-50 cursor-pointer hover:bg-zinc-200 border border-zinc-200 duration-150"
         >
           <GoogleLogo />
           <span className="text-zinc-700 font-light">{t.LOGIN.GOOGLE}</span>

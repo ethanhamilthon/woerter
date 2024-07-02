@@ -10,6 +10,7 @@ import { useI8 } from "@/features/international";
 
 export function CreateWordPage() {
   const { lang } = useParams();
+  const { t } = useI8();
   const navigate = useNavigate();
   const { profile } = useAuthStore();
   const [title, setTitle] = useState("");
@@ -47,17 +48,17 @@ export function CreateWordPage() {
   return (
     <main className="flex flex-col gap-12 container justify-center bg-white mt-6 w-full">
       <div className="w-full flex flex-col gap-4 ">
-        <span className="font-medium">Ваше слово</span>
+        <span className="font-medium">{t.СREATE.TITLE}</span>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Пишите ваше слово"
+          placeholder={t.СREATE.TITLE_P}
           className="border border-zinc-300 rounded-2xl pl-6 py-3 focus:outline focus:outline-purple-500"
         />
       </div>
       <div className="w-full flex flex-col gap-4 ">
-        <span className="font-medium">Описание</span>
+        <span className="font-medium">{t.СREATE.DESC}</span>
         <div className="w-full flex gap-4">
           <div
             className={cn(
@@ -68,7 +69,7 @@ export function CreateWordPage() {
             )}
             onClick={() => setTab("self")}
           >
-            <span>Сам написать</span>
+            <span>{t.СREATE.SELF}</span>
           </div>
           <div
             className={cn(
@@ -79,12 +80,12 @@ export function CreateWordPage() {
             )}
             onClick={() => setTab("ai")}
           >
-            <span>Генерация ИИ</span>
+            <span>{t.СREATE.GEN}</span>
           </div>
         </div>
         {tab === "self" ? (
           <textarea
-            placeholder="Опишите как можно подробнее"
+            placeholder={t.СREATE.DESC_P}
             rows={10}
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
@@ -138,7 +139,7 @@ function GenerateAI(props: { title: string; language: string }) {
   return (
     <div className="bg-zinc-50 w-full p-6 rounded-xl gap-10 flex flex-col">
       <div className="w-full flex flex-col gap-2">
-        <h3>1. Скопируйте промпт:</h3>
+        <h3>{t.СREATE.GEN1}</h3>
         <div className="w-full md:w-2/3 p-6 bg-zinc-100 rounded-lg relative">
           <div
             className="w-8 h-8 flex justify-center cursor-pointer items-center active:scale-90 duration-100 text-zinc-500 bg-zinc-200 rounded absolute top-2 right-2"
@@ -151,19 +152,19 @@ function GenerateAI(props: { title: string; language: string }) {
       </div>
       <div className="w-full flex flex-col gap-2">
         <h3>
-          2. Перейдите в сайт{" "}
+          {t.СREATE.GEN2_P1}
           <a
             href="https://chatgpt.com/"
             target="_blank"
             className="text-blue-500"
           >
-            https://chatgpt.com/
+            chatgpt.com
           </a>{" "}
-          И вставте текст.
+          {t.СREATE.GEN2_P2}
         </h3>
       </div>
       <div className="w-full flex flex-col gap-2">
-        <h3>3. Скопируйте полученный результат и вставте в поле Описание</h3>
+        <h3>{t.СREATE.GEN3}</h3>
       </div>
     </div>
   );

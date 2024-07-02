@@ -1,4 +1,5 @@
 import { DeleteWord, GetWord, UpdateWord } from "@/api/word";
+import { useI8 } from "@/features/international";
 import { WordType } from "@/types/words";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 export function EditPage() {
   //TODO: доделать
   const { id } = useParams();
+  const { t } = useI8();
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const navigate = useNavigate();
@@ -56,20 +58,20 @@ export function EditPage() {
   return (
     <main className="container flex flex-col gap-12 justify-center bg-white mt-6">
       <div className="w-full flex flex-col gap-4 ">
-        <span className="font-medium">Ваше слово</span>
+        <span className="font-medium">{t.EDIT.TITLE}</span>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Пишите ваше слово"
+          placeholder={t.EDIT.TITLE_P}
           className="border border-zinc-300 rounded-2xl pl-6 py-3 focus:outline focus:outline-purple-500"
         />
       </div>
       <div className="w-full flex flex-col gap-4 ">
-        <span className="font-medium">Описание</span>
+        <span className="font-medium">{t.EDIT.DESC}</span>
 
         <textarea
-          placeholder="Опишите как можно подробнее"
+          placeholder={t.EDIT.DESC_P}
           rows={10}
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
@@ -81,13 +83,13 @@ export function EditPage() {
           onClick={Delete}
           className="py-4 bg-red-700 rounded-xl px-8 text-white"
         >
-          Удалить слово
+          {t.EDIT.DELETE}
         </button>
         <button
           onClick={Update}
           className=" py-4 bg-purple-700 rounded-xl px-8 text-white"
         >
-          Сохранить
+          {t.EDIT.SAVE}
         </button>
       </div>
     </main>

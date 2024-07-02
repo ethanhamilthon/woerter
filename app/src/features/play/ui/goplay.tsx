@@ -1,9 +1,11 @@
+import { useI8 } from "@/features/international";
 import { usePlayStore } from "../store/play_store";
 import { useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
 export function GoPlayPage() {
   const { step, card, stepInc, stepDec, cleanCard } = usePlayStore();
+  const { t } = useI8();
   const navigate = useNavigate();
   if (card === null) {
     return <Navigate to={"/app/play"} />;
@@ -17,7 +19,7 @@ export function GoPlayPage() {
           onClick={stepDec}
           className="py-3 px-5 text-sm disabled:text-zinc-300 disabled:cursor-not-allowed bg-zinc-100 border border-zinc-300 rounded-xl text-zinc-600"
         >
-          Назад
+          {t.GOPLAY.BACK}
         </button>
         <span className="font-semibold flex items-center gap-2">
           <span className="text-2xl text-zinc-700">{step}</span>{" "}
@@ -29,7 +31,7 @@ export function GoPlayPage() {
             onClick={stepInc}
             className="py-3 px-5 text-sm bg-purple-600 disabled:bg-purple-400 disabled:cursor-not-allowed rounded-xl text-white"
           >
-            Следующий
+            {t.GOPLAY.NEXT}
           </button>
         ) : (
           <button
@@ -39,7 +41,7 @@ export function GoPlayPage() {
               navigate("/app/play");
             }}
           >
-            Завершить
+            {t.GOPLAY.END}
           </button>
         )}
       </div>

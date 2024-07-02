@@ -32,6 +32,7 @@ export type LanguageText = {
       B2: string;
       SELF: string;
       YOUR_LANG: string;
+      INPUT_P: string;
     };
     LOGIN: {
       WELCOME: string;
@@ -41,6 +42,43 @@ export type LanguageText = {
     СREATE: {
       P_EN: string;
       P_DE: string;
+      TITLE: string;
+      TITLE_P: string;
+      DESC: string;
+      DESC_P: string;
+      SELF: string;
+      GEN: string;
+      GEN1: string;
+      GEN2_P1: string;
+      GEN2_P2: string;
+      GEN3: string;
+      SAVE: string;
+    };
+    EDIT: {
+      TITLE: string;
+      TITLE_P: string;
+      DESC: string;
+      DESC_P: string;
+      DELETE: string;
+      SAVE: string;
+    };
+    GOPLAY: {
+      END: string;
+      NEXT: string;
+      BACK: string;
+    };
+    HEADER: {
+      WORDS: string;
+      PLAY: string;
+      PROFILE: string;
+      HI: string;
+      NEW: string;
+      CHOOSE: string;
+    };
+    PROFILE: {
+      TLANGS: string;
+      OSLANG: string;
+      LOGOUT: string;
     };
   };
 };

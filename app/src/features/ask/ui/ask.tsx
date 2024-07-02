@@ -70,8 +70,11 @@ export function AskPage() {
       {!requested && (
         <div className="w-full flex flex-col gap-4 ">
           <div className="flex justify-between items-center">
-            <span className="text-lg font-semibold text-zinc-700">
-              {t.ASK.YOUR_LANG + " " + Capitalize(lang)}
+            <span className="text-lg font-semibold text-zinc-500">
+              {t.ASK.YOUR_LANG + " "}{" "}
+              <span className="bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">
+                {Capitalize(lang)}
+              </span>
             </span>
             <Link
               to={"/app/create/" + lang}
@@ -84,7 +87,7 @@ export function AskPage() {
             type="text"
             value={word}
             onChange={(e) => setWord(e.target.value)}
-            placeholder="Пишите ваше слово"
+            placeholder={t.ASK.INPUT_P}
             className="border border-zinc-300 rounded-2xl pl-6 py-3 focus:outline focus:outline-purple-500"
           />
         </div>

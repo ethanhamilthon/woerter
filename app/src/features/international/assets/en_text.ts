@@ -31,7 +31,8 @@ export const EN_TEXT: LanguageText = {
       B1: "Generate",
       B2: "Go to the word",
       SELF: "Write myself",
-      YOUR_LANG: "Your language:",
+      YOUR_LANG: "Write a word in ",
+      INPUT_P: "Write it simple ;)",
     },
     LOGIN: {
       WELCOME: "Welcome back!",
@@ -49,6 +50,43 @@ export const EN_TEXT: LanguageText = {
       the translation in English. Explain the meaning of the word specifically in the context of
       each sentence. Write concisely and clearly, without unnecessary information. The answer is
       needed without Markdown formatting.`,
+      TITLE: "Your word",
+      TITLE_P: "Write it simple ;)",
+      DESC: "What does that mean:",
+      DESC_P: "Here is the explanation of your word:",
+      SELF: "Writing myself",
+      GEN: "AI Generation",
+      GEN1: "1. Copy this prompt:",
+      GEN2_P1: "2. Go to the site ",
+      GEN2_P2: " And paste the prompt",
+      GEN3: "3. Copy the result and paste it into the description field",
+      SAVE: "Save",
+    },
+    EDIT: {
+      TITLE: "Your word",
+      TITLE_P: "Write it simple ;)",
+      DESC: "What does that mean:",
+      DESC_P: "Here is the explanation of your word:",
+      DELETE: "Delete",
+      SAVE: "Save",
+    },
+    GOPLAY: {
+      END: "I'm Done",
+      NEXT: "Go next",
+      BACK: "Back",
+    },
+    HEADER: {
+      WORDS: "Words",
+      PLAY: "Play",
+      PROFILE: "Profile",
+      HI: "Hi, ",
+      NEW: "New word",
+      CHOOSE: "Choose the language",
+    },
+    PROFILE: {
+      TLANGS: "You are learning these languages:",
+      OSLANG: "System language",
+      LOGOUT: "Log out of the System",
     },
   },
 };
