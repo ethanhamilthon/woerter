@@ -2,6 +2,7 @@ import { useAuthStore } from "@/features/common";
 import { useI8 } from "@/features/international";
 import { getCookieValue } from "@/utils/cookie";
 import { Capitalize } from "@/utils/string";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
@@ -66,40 +67,45 @@ export function AskPage() {
     }
   }
   return (
-    <main className="container flex flex-col gap-12  justify-center mt-12">
+    <main className="container flex flex-col gap-6  justify-center mt-12">
       {!requested && (
-        <div className="w-full flex flex-col gap-4 ">
-          <div className="flex justify-between items-center">
-            <span className="text-lg font-semibold text-zinc-500">
-              {t.ASK.YOUR_LANG + " "}{" "}
-              <span className="bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">
-                {Capitalize(lang)}
+        <>
+          <div className="w-full flex flex-col gap-4 ">
+            <div className="flex justify-between items-center">
+              <span className="text-lg font-semibold text-zinc-500">
+                {t.ASK.YOUR_LANG + " "}{" "}
+                <span className="bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">
+                  {Capitalize(lang)}
+                </span>
               </span>
-            </span>
-            <Link
-              to={"/app/create/" + lang}
-              className="underline text-zinc-400 cursor-pointer hover:text-zinc-600"
-            >
-              {t.ASK.SELF}
-            </Link>
+              <Link
+                to={"/app/create/" + lang}
+                className="underline text-zinc-400 cursor-pointer hover:text-zinc-600"
+              >
+                {t.ASK.SELF}
+              </Link>
+            </div>
+            <input
+              type="text"
+              value={word}
+              onChange={(e) => setWord(e.target.value)}
+              placeholder={t.ASK.INPUT_P}
+              className="border border-zinc-300 rounded-2xl pl-6 py-3 focus:outline focus:outline-purple-500"
+            />
           </div>
-          <input
-            type="text"
-            value={word}
-            onChange={(e) => setWord(e.target.value)}
-            placeholder={t.ASK.INPUT_P}
-            className="border border-zinc-300 rounded-2xl pl-6 py-3 focus:outline focus:outline-purple-500"
-          />
+          <Guide lang={Capitalize(lang)} />
+        </>
+      )}
+      {requested && (
+        <div className="w-full">
+          <p className="text-zinc-600 font-light whitespace-pre-line">
+            {msgs.map((txt) => {
+              return txt;
+            })}
+          </p>
         </div>
       )}
-      <div className="w-full">
-        <p className="text-zinc-600 font-light whitespace-pre-line">
-          {msgs.map((txt) => {
-            return txt;
-          })}
-        </p>
-      </div>
-      <div className="w-full flex justify-end items-center">
+      <div className="w-full flex justify-end items-center mt-8">
         {requested ? (
           <Link
             to={"/app/dic/" + wordId}
@@ -118,5 +124,28 @@ export function AskPage() {
         )}
       </div>
     </main>
+  );
+}
+
+function Guide(props: { lang: string }) {
+  const [open, setOpen] = useState(false);
+  const { t } = useI8();
+  return (
+    <div className="w-full flex flex-col gap-4 p-2 px-4 bg-purple-100 border border-purple-300 rounded-lg">
+      <div
+        onClick={() => setOpen((prev) => !prev)}
+        className="flex justify-between text-sm items-center cursor-pointer text-purple-800"
+      >
+        <span>{t.ASK.G_M}</span>
+        {open ? <ChevronUp /> : <ChevronDown />}
+      </div>
+      {open && (
+        <div className="flex flex-col gap-1 text-xs font-light text-purple-600">
+          <span>{t.ASK.G1 + props.lang} </span>
+          <span>{t.ASK.G2}</span>
+          <span>{t.ASK.G3}</span>
+        </div>
+      )}
+    </div>
   );
 }

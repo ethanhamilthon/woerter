@@ -24,6 +24,18 @@ export const OsLanguages: Language[] = [
     text: "English",
     icon: "english.png",
   },
+  {
+    value: "french",
+    short: "FR",
+    text: "Fransızca",
+    icon: "french.png",
+  },
+  {
+    value: "turkish",
+    short: "TR",
+    text: "Türkçe",
+    icon: "turkish.png",
+  },
 ];
 
 export type Language = {
@@ -33,4 +45,4 @@ export type Language = {
   icon: string;
 };
 
-export type OsLanguageValues = "russian" | "english";
+export type OsLanguageValues = "russian" | "english" | "french" | "turkish";

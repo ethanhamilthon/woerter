@@ -48,17 +48,17 @@ export function CreateWordPage() {
   return (
     <main className="flex flex-col gap-12 container justify-center bg-white mt-6 w-full">
       <div className="w-full flex flex-col gap-4 ">
-        <span className="font-medium">{t.СREATE.TITLE}</span>
+        <span className="font-medium">{t.CREATE.TITLE}</span>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder={t.СREATE.TITLE_P}
+          placeholder={t.CREATE.TITLE_P}
           className="border border-zinc-300 rounded-2xl pl-6 py-3 focus:outline focus:outline-purple-500"
         />
       </div>
       <div className="w-full flex flex-col gap-4 ">
-        <span className="font-medium">{t.СREATE.DESC}</span>
+        <span className="font-medium">{t.CREATE.DESC}</span>
         <div className="w-full flex gap-4">
           <div
             className={cn(
@@ -69,7 +69,7 @@ export function CreateWordPage() {
             )}
             onClick={() => setTab("self")}
           >
-            <span>{t.СREATE.SELF}</span>
+            <span>{t.CREATE.SELF}</span>
           </div>
           <div
             className={cn(
@@ -80,12 +80,12 @@ export function CreateWordPage() {
             )}
             onClick={() => setTab("ai")}
           >
-            <span>{t.СREATE.GEN}</span>
+            <span>{t.CREATE.GEN}</span>
           </div>
         </div>
         {tab === "self" ? (
           <textarea
-            placeholder={t.СREATE.DESC_P}
+            placeholder={t.CREATE.DESC_P}
             rows={10}
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
@@ -113,12 +113,12 @@ function GenerateAI(props: { title: string; language: string }) {
   function GetText() {
     switch (props.language) {
       case "english":
-        return t.СREATE.P_EN;
+        return t.CREATE.P_EN;
 
       case "german":
-        return t.СREATE.P_DE;
+        return t.CREATE.P_DE;
       default:
-        return t.СREATE.P_EN;
+        return t.CREATE.P_EN;
     }
   }
 
@@ -139,7 +139,7 @@ function GenerateAI(props: { title: string; language: string }) {
   return (
     <div className="bg-zinc-50 w-full p-6 rounded-xl gap-10 flex flex-col">
       <div className="w-full flex flex-col gap-2">
-        <h3>{t.СREATE.GEN1}</h3>
+        <h3>{t.CREATE.GEN1}</h3>
         <div className="w-full md:w-2/3 p-6 bg-zinc-100 rounded-lg relative">
           <div
             className="w-8 h-8 flex justify-center cursor-pointer items-center active:scale-90 duration-100 text-zinc-500 bg-zinc-200 rounded absolute top-2 right-2"
@@ -152,7 +152,7 @@ function GenerateAI(props: { title: string; language: string }) {
       </div>
       <div className="w-full flex flex-col gap-2">
         <h3>
-          {t.СREATE.GEN2_P1}
+          {t.CREATE.GEN2_P1}
           <a
             href="https://chatgpt.com/"
             target="_blank"
@@ -160,11 +160,11 @@ function GenerateAI(props: { title: string; language: string }) {
           >
             chatgpt.com
           </a>{" "}
-          {t.СREATE.GEN2_P2}
+          {t.CREATE.GEN2_P2}
         </h3>
       </div>
       <div className="w-full flex flex-col gap-2">
-        <h3>{t.СREATE.GEN3}</h3>
+        <h3>{t.CREATE.GEN3}</h3>
       </div>
     </div>
   );

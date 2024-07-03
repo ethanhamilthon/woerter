@@ -10,6 +10,7 @@ type AuthProviderProps = {
 
 export function AuthProvider(props: AuthProviderProps) {
   const { changeState, changeProfile, state } = useAuthStore();
+
   async function Initial() {
     const token = getCookieValue("Authorization");
     if (token === null) {

@@ -1,5 +1,5 @@
 import { useAuthStore } from "@/features/common";
-import { useI8 } from "@/features/international";
+import { ChangeLanguage, useI8 } from "@/features/international";
 import { deleteCookie } from "@/utils/cookie";
 import { Capitalize } from "@/utils/string";
 import { useNavigate } from "react-router-dom";
@@ -63,7 +63,7 @@ export function ProfilePage() {
         >
           {t.PROFILE.LOGOUT}
         </button>
-        {/* <ChangeLanguage /> */}
+        <ChangeLanguage />
       </div>
     </main>
   );

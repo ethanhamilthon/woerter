@@ -9,7 +9,7 @@ type II8 = {
 };
 
 export const useI8Store = create<II8>((set) => ({
-  currentLang: "russian",
+  currentLang: "english",
   text: Texts[0],
   setLang: (lang) =>
     set(() => {

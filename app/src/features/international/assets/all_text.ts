@@ -1,6 +1,8 @@
 import { EN_TEXT } from "./en_text";
 import { OsLanguageValues } from "./languages";
 import { RU_TEXT } from "./ru_text";
+import { FR_TEXT } from "./fr_text";
+import { TR_TEXT } from "./tr_text";
 
 export type LanguageText = {
   value: OsLanguageValues;
@@ -33,13 +35,17 @@ export type LanguageText = {
       SELF: string;
       YOUR_LANG: string;
       INPUT_P: string;
+      G_M: string;
+      G1: string;
+      G2: string;
+      G3: string;
     };
     LOGIN: {
       WELCOME: string;
       NEXT: string;
       GOOGLE: string;
     };
-    СREATE: {
+    CREATE: {
       P_EN: string;
       P_DE: string;
       TITLE: string;
@@ -83,4 +89,4 @@ export type LanguageText = {
   };
 };
 
-export const Texts: LanguageText[] = [RU_TEXT, EN_TEXT];
+export const Texts: LanguageText[] = [RU_TEXT, EN_TEXT, FR_TEXT, TR_TEXT];

@@ -24,6 +24,14 @@ function Convert(lang: string) {
     case "russian":
       oslang = "russian";
       break;
+    case "fr":
+    case "french":
+      oslang = "french";
+      break;
+    case "tr":
+    case "turkish":
+      oslang = "turkish";
+      break;
   }
   return oslang;
 }

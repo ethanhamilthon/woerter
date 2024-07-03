@@ -16,6 +16,9 @@ export function Home() {
   ) {
     return <Navigate to="/app/onboard" />;
   }
+  if (query.get("state") === "done") {
+    window.location.href = "/app/";
+  }
   return (
     <main className="flex justify-center bg-white">
       <div className="container  flex flex-col gap-8">
