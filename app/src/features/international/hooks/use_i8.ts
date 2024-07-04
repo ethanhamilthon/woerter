@@ -32,6 +32,10 @@ function Convert(lang: string) {
     case "turkish":
       oslang = "turkish";
       break;
+    case "zh":
+    case "chinese":
+      oslang = "chinese";
+      break;
   }
   return oslang;
 }

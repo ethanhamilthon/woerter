@@ -97,21 +97,21 @@ export function Header() {
         <nav className="items-center gap-12 hidden md:flex">
           <Link
             to={"/app"}
-            className="flex-1 flex justify-center items-center gap-2 text-zinc-500 hover:text-zinc-700 duration-150"
+            className=" flex justify-center items-center gap-2 text-zinc-500 hover:text-zinc-700 duration-150"
           >
             <Swords size={18} className="text-zinc-400" />
             {t.HEADER.WORDS}
           </Link>
           <Link
             to={"/app/play"}
-            className="flex-1 flex justify-center items-center gap-2 text-zinc-500 hover:text-zinc-700 duration-150"
+            className="flex justify-center items-center gap-2 text-zinc-500 hover:text-zinc-700 duration-150"
           >
             <Play size={18} className="text-zinc-400" />
             {t.HEADER.PLAY}
           </Link>
           <Link
             to={"/app/profile"}
-            className="flex-1 flex justify-center items-center gap-2 text-zinc-500 hover:text-zinc-700 duration-150"
+            className=" flex justify-center items-center gap-2 text-zinc-500 hover:text-zinc-700 duration-150"
           >
             <CircleUserRound size={18} className="text-zinc-400" />
             {t.HEADER.PROFILE}

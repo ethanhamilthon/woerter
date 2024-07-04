@@ -15,6 +15,7 @@ export function AskPage() {
   const { profile } = useAuthStore();
   const [requested, setRequested] = useState(false);
   const [wordId, setWordID] = useState("");
+  const [isLoading, setLoading] = useState(false);
   if (
     lang === undefined ||
     !profile.languages
@@ -26,6 +27,8 @@ export function AskPage() {
     return <Navigate to={"/app"} />;
   }
   async function Getdata() {
+    if (isLoading) return;
+    setLoading(true);
     const token = getCookieValue("Authorization");
     if (token === null) {
       return;
@@ -65,6 +68,7 @@ export function AskPage() {
       const text = decoder.decode(value);
       setMsgs((prev) => [...prev, text]);
     }
+    setLoading(false);
   }
   return (
     <main className="container flex flex-col gap-6  justify-center mt-12">
@@ -116,7 +120,7 @@ export function AskPage() {
         ) : (
           <button
             onClick={Getdata}
-            disabled={word === ""}
+            disabled={word === "" || isLoading}
             className=" py-4 bg-purple-700 rounded-xl px-8 text-white disabled:bg-zinc-400 disabled:cursor-not-allowed"
           >
             {t.ASK.B1}

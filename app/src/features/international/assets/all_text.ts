@@ -3,6 +3,7 @@ import { OsLanguageValues } from "./languages";
 import { RU_TEXT } from "./ru_text";
 import { FR_TEXT } from "./fr_text";
 import { TR_TEXT } from "./tr_text";
+import { ZH_TEXT } from "./cn_text";
 
 export type LanguageText = {
   value: OsLanguageValues;
@@ -89,4 +90,10 @@ export type LanguageText = {
   };
 };
 
-export const Texts: LanguageText[] = [RU_TEXT, EN_TEXT, FR_TEXT, TR_TEXT];
+export const Texts: LanguageText[] = [
+  RU_TEXT,
+  EN_TEXT,
+  FR_TEXT,
+  TR_TEXT,
+  ZH_TEXT,
+];
