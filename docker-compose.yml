@@ -27,3 +27,6 @@ services:
     container_name: go_app
     ports:
       - "8081:8081"
+    volumes:
+      - ./main.db:/app/main.db
+      - ./log.db:/app/log.db

@@ -1,0 +1,18 @@
+---
+interface Props{
+  title: string;
+  desc: string;
+}
+
+const {title, desc} = Astro.props
+---
+
+<div class="bg-gradient-to-br from-white to-violet-100 rounded-md max-w-80 w-full p-4">
+  <div>
+    <span>{title}</span>
+    <img src="" alt="" class="w-8 h-8 bg-zinc-100">
+  </div>
+  <p>
+    {desc}
+  </p>
+</div>

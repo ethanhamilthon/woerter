@@ -1,0 +1,25 @@
+---
+import WhyusCard from "./Whyus_card.astro";
+const texts = [
+  {title: "Все в одном клике:", desc: "Просто напиши слово, а мы сразу же покажем и перевод и как его использовать"},
+  {title: "Удобное повторение:", desc: "Ты можешь в любой момент повторить те слова, которых ты добавил, так ты запомнишь их навсегда"},
+  {title: "100% точный ответ:", desc: "Наши ответы созданы через мощные ИИ, которые на разы лучше чем обычные переводчики"},
+  {title: "0% лишней информации:", desc: "Тебе не придется искать информации по кускам, получи только то что тебе нужно"},
+]
+---
+
+<section class="flex justify-center w-full bg-gradient-to-br from-violet-500 to-violet-700 py-12">
+  <div class="container flex flex-col items-center gap-6">
+    <h2 class="text-2xl font-bold text-white">Почему с нами?</h2>
+    <div class="w-full flex flex-col md:flex-row md:items-start justify-center gap-4 ">
+      <div class="flex flex-col items-center justify-center gap-4">
+        <WhyusCard title="Все в одном клике:" desc="Просто напиши слово, а мы сразу же покажем и перевод и как его использовать"/>
+        <WhyusCard title="Удобное повторение:" desc="Ты можешь в любой момент повторить те слова, которых ты добавил, так ты запомнишь их навсегд"/>
+      </div>
+      <div class="flex flex-col items-center justify-center gap-4">
+        <WhyusCard title="100% точный ответ:" desc="Наши ответы созданы через мощные ИИ, которые на разы лучше чем обычные переводчики"/>
+        <WhyusCard title="0% лишней информации:" desc="Тебе не придется искать информации по кускам, получи только то что тебе нужно"/>
+      </div>
+    </div>
+  </div>
+</section>
