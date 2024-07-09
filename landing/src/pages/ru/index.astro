@@ -1,0 +1,83 @@
+---
+import Header from "../../components/Header.astro";
+import Hero from "../../components/Hero.astro";
+import Paradox from "../../components/Paradox.astro";
+import Whyus from "../../components/Whyus.astro";
+import Layout from "../../layouts/Layout.astro";
+import CTA from "../../components/CTA.astro";
+import Footer from "../../components/Footer.astro";
+import WhyusCard from "../../components/Whyus_card.astro";
+import Click from "../../icons/Click.astro";
+import Info from "../../icons/Info.astro";
+import Trust from "../../icons/Trust.astro";
+import Repeat from "../../icons/Repeat.astro";
+---
+
+<Layout title="Привет, это Syncword" lang="ru">
+  <Header button="В приложение" />
+  <Hero try="Хочу попробовать" login="Войти">
+    <h1 class="text-3xl sm:text-4xl font-bold text-zinc-700 text-center">
+      Осваивай новые
+      <br />
+       слова
+      <span
+        class="bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text"
+      >
+        быстрее
+      </span>
+    </h1>
+    <h3 class="font-light sm:text-base text-sm text-zinc-600 text-center">
+      <span
+        class="bg-gradient-to-r font-medium from-purple-400 to-purple-600 text-transparent bg-clip-text"
+        >Syncword</span
+      > использует <span
+        class="bg-gradient-to-r font-medium from-purple-400 to-purple-600 text-transparent bg-clip-text"
+        >ИИ</span
+      > для
+      <br />
+       облегчения изучения языка
+    </h3>
+  </Hero>
+  <Paradox
+    image="ru"
+    title="Необычный парадокс… 😵‍💫"
+    desc1="Запоминать отдельные слова сложнее, чем учиться через примеры предложений. Благодаря примерам, мозг запоминает информацию быстрее и надолго."
+    desc2="Мы делаем именно это в Syncword. Объясняем слова через примеры и показываем их в контексте."
+  />
+  <Whyus why="Почему именно мы?">
+    <div class="flex flex-col items-center justify-center gap-4">
+      <WhyusCard
+        title="Все одним кликом:"
+        desc="Введи слово, и мы мгновенно покажем его перевод и примеры использования."
+      >
+        <Click size="32" strokeWidth={1.5} />
+      </WhyusCard>
+      <WhyusCard
+        title="Удобное повторение:"
+        desc="Ты можешь повторять слова в любое время, что поможет лучше их запомнить."
+      >
+        <Repeat size="32" strokeWidth={2} />
+      </WhyusCard>
+    </div>
+    <div class="flex flex-col items-center justify-center gap-4">
+      <WhyusCard
+        title="Точный перевод:"
+        desc="Наши переводы созданы с помощью мощного ИИ, который намного точнее обычных переводчиков."
+      >
+        <Trust size="32" strokeWidth={12} />
+      </WhyusCard>
+      <WhyusCard
+        title="Только нужная информация:"
+        desc="Ты получишь только нужную информацию без лишних деталей."
+      >
+        <Info size="32" strokeWidth={5} />
+      </WhyusCard>
+    </div>
+  </Whyus>
+  <CTA
+    title="Начни обучение сейчас"
+    desc1="Приложение полностью бесплатно, нет пробного периода. Регистрация в один клик через Google!"
+    button="Попробовать"
+  />
+  <Footer links="Соцсети автора" />
+</Layout>

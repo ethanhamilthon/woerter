@@ -1,17 +1,25 @@
-<section class="flex container gap-8 min-h-72">
+---
+interface Props {
+  title: string;
+  desc1: string;
+  desc2: string;
+  image: string;
+}
+
+const { title, desc1, desc2, image } = Astro.props;
+---
+
+<section class="flex md:flex-row flex-col container gap-8 min-h-72 py-12">
   <div class="max-w-md flex flex-col justify-between h-full">
     <div class="flex flex-col gap-2">
-      <h2 class="text-2xl font-bold text-zinc-700">
-        Странный парадокс… 😵‍💫
-      </h2>
+      <h2 class="text-2xl font-bold text-zinc-700">{title}</h2>
       <p class="text-sm font-light text-zinc-500">
-        Учить отдельные слова сложнее чем учить через предложении. Через примеры человеческий мозг запоминает информации гораздо быстрее и на долгий срок
+        {desc1}
       </p>
     </div>
     <p class="text-sm font-light text-zinc-700 mt-16">
-      Это то что мы делаем в Syncword. Мы объясняем значение слов через несколько примеров, и показываем его значение в контексте
+      {desc2}
     </p>
   </div>
-  <div class="w-full h-72 bg-zinc-200">
-  </div>
+  <img src={`/${image}_paradox.png`} class="w-full h-72 object-scale-down" />
 </section>

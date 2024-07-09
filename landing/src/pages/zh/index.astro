@@ -1,0 +1,83 @@
+---
+import Header from "../../components/Header.astro";
+import Hero from "../../components/Hero.astro";
+import Paradox from "../../components/Paradox.astro";
+import Whyus from "../../components/Whyus.astro";
+import Layout from "../../layouts/Layout.astro";
+import CTA from "../../components/CTA.astro";
+import Footer from "../../components/Footer.astro";
+import WhyusCard from "../../components/Whyus_card.astro";
+import Click from "../../icons/Click.astro";
+import Info from "../../icons/Info.astro";
+import Trust from "../../icons/Trust.astro";
+import Repeat from "../../icons/Repeat.astro";
+---
+
+<Layout title="你好，这是Syncword" lang="zh">
+  <Header button="进入应用" />
+  <Hero try="我要尝试" login="登录">
+    <h1 class="text-3xl sm:text-4xl font-bold text-zinc-700 text-center">
+      更快掌握新
+      <br />
+       词汇
+      <span
+        class="bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text"
+      >
+        更快
+      </span>
+    </h1>
+    <h3 class="font-light sm:text-base text-sm text-zinc-600 text-center">
+      <span
+        class="bg-gradient-to-r font-medium from-purple-400 to-purple-600 text-transparent bg-clip-text"
+        >Syncword</span
+      > 使用 <span
+        class="bg-gradient-to-r font-medium from-purple-400 to-purple-600 text-transparent bg-clip-text"
+        >人工智能</span
+      > 来
+      <br />
+       让语言学习更轻松
+    </h3>
+  </Hero>
+  <Paradox
+    image="zh"
+    title="一个奇怪的悖论… 😵‍💫"
+    desc1="记住单个词语比通过句子示例学习更难。示例有助于大脑更快地记住信息，并且记忆更持久。"
+    desc2="这正是我们在Syncword所做的。我们通过示例解释词语，并在上下文中展示它们。"
+  />
+  <Whyus why="为什么是我们？">
+    <div class="flex flex-col items-center justify-center gap-4">
+      <WhyusCard
+        title="一键搞定："
+        desc="输入一个词，我们会立即显示其翻译和用例。"
+      >
+        <Click size="32" strokeWidth={1.5} />
+      </WhyusCard>
+      <WhyusCard
+        title="方便的重复："
+        desc="你可以随时复习单词，这有助于更好地记住它们。"
+      >
+        <Repeat size="32" strokeWidth={2} />
+      </WhyusCard>
+    </div>
+    <div class="flex flex-col items-center justify-center gap-4">
+      <WhyusCard
+        title="精准翻译："
+        desc="我们的翻译由强大的人工智能生成，比普通翻译器更准确。"
+      >
+        <Trust size="32" strokeWidth={12} />
+      </WhyusCard>
+      <WhyusCard
+        title="只提供必要信息："
+        desc="你只会收到必要的信息，没有多余的细节。"
+      >
+        <Info size="32" strokeWidth={5} />
+      </WhyusCard>
+    </div>
+  </Whyus>
+  <CTA
+    title="立即开始学习"
+    desc1="应用完全免费，没有试用期。通过 Google 一键注册！"
+    button="尝试"
+  />
+  <Footer links="作者的社交网络" />
+</Layout>

@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   nginx:
@@ -11,7 +11,7 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - /etc/letsencrypt:/etc/letsencrypt  # Монтируем папку с сертификатами
+      - /etc/letsencrypt:/etc/letsencrypt # Монтируем папку с сертификатами
 
   certbot:
     image: certbot/certbot
@@ -23,7 +23,7 @@ services:
     entrypoint: /bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'
 
   go_app:
-    image: yerd:0.0.6
+    image: yerd:0.0.8
     container_name: go_app
     ports:
       - "8081:8081"

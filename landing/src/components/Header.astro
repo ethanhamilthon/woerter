@@ -1,8 +1,18 @@
+---
+interface Props {
+  button: string;
+}
+const { button } = Astro.props;
+---
+
 <header class="w-full">
-  <div class="container flex justify-between items-center py-2">
+  <div class="container flex justify-between items-center py-6">
     <span class="text-2xl font-bold text-zinc-700">SyncWord</span>
-    <a href="/app/" class="flex justify-center items-center px-4 py-2 sm:px-6 sm:py-3 rounded-lg text-white bg-violet-500 border border-purple-200">
-      Open the app
+    <a
+      href="/app/"
+      class="flex justify-center items-center px-4 py-2 text-xs sm:text-base sm:px-6 sm:py-3 rounded-lg text-white bg-violet-500 border border-purple-200"
+    >
+      {button}
     </a>
   </div>
 </header>

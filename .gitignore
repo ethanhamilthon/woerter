@@ -5,6 +5,7 @@ build/
 bin/
 static/
 .env
+.TODO
 .instruction
 ins.txt
 .DS_Store

@@ -1,0 +1,83 @@
+---
+import Header from "../../components/Header.astro";
+import Hero from "../../components/Hero.astro";
+import Paradox from "../../components/Paradox.astro";
+import Whyus from "../../components/Whyus.astro";
+import Layout from "../../layouts/Layout.astro";
+import CTA from "../../components/CTA.astro";
+import Footer from "../../components/Footer.astro";
+import WhyusCard from "../../components/Whyus_card.astro";
+import Click from "../../icons/Click.astro";
+import Info from "../../icons/Info.astro";
+import Trust from "../../icons/Trust.astro";
+import Repeat from "../../icons/Repeat.astro";
+---
+
+<Layout title="Bonjour, c'est Syncword" lang="fr">
+  <Header button="Vers l'application" />
+  <Hero try="Je veux essayer" login="Se connecter">
+    <h1 class="text-3xl sm:text-4xl font-bold text-zinc-700 text-center">
+      Maîtrisez de nouveaux
+      <br />
+       mots
+      <span
+        class="bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text"
+      >
+        plus rapidement
+      </span>
+    </h1>
+    <h3 class="font-light sm:text-base text-sm text-zinc-600 text-center">
+      <span
+        class="bg-gradient-to-r font-medium from-purple-400 to-purple-600 text-transparent bg-clip-text"
+        >Syncword</span
+      > utilise <span
+        class="bg-gradient-to-r font-medium from-purple-400 to-purple-600 text-transparent bg-clip-text"
+        >l'IA</span
+      > pour
+      <br />
+       faciliter l'apprentissage des langues
+    </h3>
+  </Hero>
+  <Paradox
+    image="fr"
+    title="Un paradoxe étrange… 😵‍💫"
+    desc1="Se souvenir des mots individuels est plus difficile que d'apprendre par des exemples de phrases. Les exemples aident le cerveau à retenir l'information plus rapidement et plus longtemps."
+    desc2="C'est exactement ce que nous faisons chez Syncword. Nous expliquons les mots à travers des exemples et les montrons dans leur contexte."
+  />
+  <Whyus why="Pourquoi nous ?">
+    <div class="flex flex-col items-center justify-center gap-4">
+      <WhyusCard
+        title="Tout en un clic:"
+        desc="Entrez un mot, et nous affichons instantanément sa traduction et des exemples d'utilisation."
+      >
+        <Click size="32" strokeWidth={1.5} />
+      </WhyusCard>
+      <WhyusCard
+        title="Répétition pratique:"
+        desc="Vous pouvez répéter les mots à tout moment, ce qui aide à mieux les mémoriser."
+      >
+        <Repeat size="32" strokeWidth={2} />
+      </WhyusCard>
+    </div>
+    <div class="flex flex-col items-center justify-center gap-4">
+      <WhyusCard
+        title="Traduction précise:"
+        desc="Nos traductions sont créées à l'aide d'une IA puissante, beaucoup plus précise que les traducteurs ordinaires."
+      >
+        <Trust size="32" strokeWidth={12} />
+      </WhyusCard>
+      <WhyusCard
+        title="Seulement les informations nécessaires:"
+        desc="Vous recevrez uniquement les informations nécessaires, sans détails superflus."
+      >
+        <Info size="32" strokeWidth={5} />
+      </WhyusCard>
+    </div>
+  </Whyus>
+  <CTA
+    title="Commencez à apprendre maintenant"
+    desc1="L'application est entièrement gratuite, sans période d'essai. Inscription en un clic via Google!"
+    button="Essayer"
+  />
+  <Footer links="Réseaux sociaux de l'auteur" />
+</Layout>

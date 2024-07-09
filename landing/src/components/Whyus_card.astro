@@ -1,18 +1,22 @@
 ---
-interface Props{
+interface Props {
   title: string;
   desc: string;
 }
 
-const {title, desc} = Astro.props
+const { title, desc } = Astro.props;
 ---
 
-<div class="bg-gradient-to-br from-white to-violet-100 rounded-md max-w-80 w-full p-4">
-  <div>
-    <span>{title}</span>
-    <img src="" alt="" class="w-8 h-8 bg-zinc-100">
+<div
+  class="bg-gradient-to-br from-white to-violet-100 rounded-md max-w-80 w-full p-4"
+>
+  <div
+    class="flex items-center justify-between w-full text-lg font-bold text-violet-900"
+  >
+    <span class="text-lg font-bold text-violet-900">{title}</span>
+    <slot />
   </div>
-  <p>
+  <p class="text-sm font-light text-zinc-600">
     {desc}
   </p>
 </div>

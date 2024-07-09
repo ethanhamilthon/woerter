@@ -1,30 +1,42 @@
-<main class="container flex items-center flex-col gap-6 justify-center">
-  <h1 class="text-3xl sm:text-4xl font-bold text-zinc-700 text-center">
-    Учи новые слова
-    <br/>
-    <span class="bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">
-      быстрее
-    </span>
-  </h1>
-  <h3 class="font-light sm:text-base text-sm text-zinc-600 text-center">
-    <span class="bg-gradient-to-r font-medium from-purple-400 to-purple-600 text-transparent bg-clip-text">Syncword</span> помогает тебе в изучение нового языка
-    <br/>
-    с помощью <span class="bg-gradient-to-r font-medium from-purple-400 to-purple-600 text-transparent bg-clip-text">искусственного интеллекта</span>
+---
+interface Props {
+  login: string;
+  try: string;
+}
+const { login, try: trying } = Astro.props;
+---
 
-  </h3>
+<main
+  class="container flex items-center flex-col gap-6 justify-center bgradient py-12 sm:py-24"
+>
+  <slot />
   <div class="flex gap-4">
     <a
       href="/app/"
       class="py-2 px-4 bg-zinc-100 text-zinc-600 border border-zinc-200 rounded-lg hover:bg-zinc-200 duration-150"
     >
-    Войти
+      {login}
     </a>
-    <a 
+    <a
       href="/app/"
       class="py-2 px-4 bg-violet-600 text-white border border-purple-200 rounded-lg hover:bg-violet-700 duration-150"
     >
-    Хочу попробовать
+      {trying}
     </a>
   </div>
-  <div class="w-full px-4 sm:w-4/5 bg-gray-200 rounded-xl h-96"></div>
+  <img
+    src="/hero.jpg"
+    class="w-full px-4 sm:w-4/5 rounded-xl h-96 object-cover border-4 border-violet-600/20"
+  />
 </main>
+
+<style>
+  .bgradient {
+    background: rgb(242, 211, 255);
+    background: radial-gradient(
+      circle,
+      rgba(242, 211, 255, 1) 0%,
+      rgba(255, 255, 255, 1) 50%
+    );
+  }
+</style>

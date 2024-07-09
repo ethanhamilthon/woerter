@@ -1,0 +1,84 @@
+---
+import Header from "../../components/Header.astro";
+import Hero from "../../components/Hero.astro";
+import Paradox from "../../components/Paradox.astro";
+import Whyus from "../../components/Whyus.astro";
+import Layout from "../../layouts/Layout.astro";
+import CTA from "../../components/CTA.astro";
+import Footer from "../../components/Footer.astro";
+import WhyusCard from "../../components/Whyus_card.astro";
+import Click from "../../icons/Click.astro";
+import Info from "../../icons/Info.astro";
+import Trust from "../../icons/Trust.astro";
+import Repeat from "../../icons/Repeat.astro";
+---
+
+<Layout title="Merhaba, bu Syncword" lang="tr">
+  <Header button="Uygulamaya Git" />
+  <Hero try="Denemek İstiyorum" login="Giriş Yap">
+    <h1 class="text-3xl sm:text-4xl font-bold text-zinc-700 text-center">
+      Yeni kelimeleri
+      <br />
+       öğrenin
+      <span
+        class="bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text"
+      >
+        daha hızlı
+      </span>
+    </h1>
+    <h3 class="font-light sm:text-base text-sm text-zinc-600 text-center">
+      <span
+        class="bg-gradient-to-r font-medium from-purple-400 to-purple-600 text-transparent bg-clip-text"
+        >Syncword</span
+      >
+      <span
+        class="bg-gradient-to-r font-medium from-purple-400 to-purple-600 text-transparent bg-clip-text"
+        >Yapay Zeka</span
+      > kullanarak
+      <br />
+       dil öğrenimini kolaylaştırır
+    </h3>
+  </Hero>
+  <Paradox
+    image="tr"
+    title="Garip bir paradoks… 😵‍💫"
+    desc1="Bireysel kelimeleri hatırlamak, cümle örnekleriyle öğrenmekten daha zordur. Örnekler, beynin bilgiyi daha hızlı ve kalıcı olarak hatırlamasına yardımcı olur."
+    desc2="Syncword'de tam olarak bunu yapıyoruz. Kelimeleri örneklerle açıklıyoruz ve bağlam içinde gösteriyoruz."
+  />
+  <Whyus why="Neden biz?">
+    <div class="flex flex-col items-center justify-center gap-4">
+      <WhyusCard
+        title="Tek tıklamayla her şey:"
+        desc="Bir kelime girin, anında çevirisini ve kullanım örneklerini gösterelim."
+      >
+        <Click size="32" strokeWidth={1.5} />
+      </WhyusCard>
+      <WhyusCard
+        title="Kolay tekrar:"
+        desc="Kelimeleri istediğiniz zaman tekrar edebilir, böylece onları daha iyi hatırlayabilirsiniz."
+      >
+        <Repeat size="32" strokeWidth={2} />
+      </WhyusCard>
+    </div>
+    <div class="flex flex-col items-center justify-center gap-4">
+      <WhyusCard
+        title="Doğru çeviri:"
+        desc="Çevirilerimiz, sıradan çevirmenlerden çok daha doğru olan güçlü bir yapay zeka kullanılarak oluşturulmuştur."
+      >
+        <Trust size="32" strokeWidth={12} />
+      </WhyusCard>
+      <WhyusCard
+        title="Sadece gerekli bilgiler:"
+        desc="Gereksiz detaylar olmadan sadece gerekli bilgileri alırsınız."
+      >
+        <Info size="32" strokeWidth={5} />
+      </WhyusCard>
+    </div>
+  </Whyus>
+  <CTA
+    title="Şimdi öğrenmeye başla"
+    desc1="Uygulama tamamen ücretsizdir, deneme süresi yoktur. Google ile tek tıklamayla kayıt!"
+    button="Dene"
+  />
+  <Footer links="Yazarın sosyal ağları" />
+</Layout>
