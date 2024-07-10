@@ -1,18 +1,25 @@
 ---
+import { ChangeLang } from "./ChangeLang";
 interface Props {
   button: string;
+  currentLang: string;
 }
-const { button } = Astro.props;
+const { button, currentLang } = Astro.props;
 ---
 
 <header class="w-full">
   <div class="container flex justify-between items-center py-6">
-    <span class="text-2xl font-bold text-zinc-700">SyncWord</span>
-    <a
-      href="/app/"
-      class="flex justify-center items-center px-4 py-2 text-xs sm:text-base sm:px-6 sm:py-3 rounded-lg text-white bg-violet-500 border border-purple-200"
+    <span class="text-2xl font-bold text-zinc-700 sm:flex hidden">SyncWord</span
     >
-      {button}
-    </a>
+    <span class="text-2xl font-bold text-zinc-700 sm:hidden">SW</span>
+    <div class="flex items-center gap-2">
+      <ChangeLang currectLang={currentLang} client:only />
+      <a
+        href="/app/"
+        class="flex justify-center items-center px-4 py-2 text-sm sm:text-base sm:px-6 sm:py-3 rounded-lg text-white bg-violet-500 border border-purple-200"
+      >
+        {button}
+      </a>
+    </div>
   </div>
 </header>

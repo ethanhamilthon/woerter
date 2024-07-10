@@ -27,7 +27,7 @@ export const OsLanguages: Language[] = [
   {
     value: "french",
     short: "FR",
-    text: "Fransızca",
+    text: "Français",
     icon: "french.png",
   },
   {
