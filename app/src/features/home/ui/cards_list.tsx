@@ -6,6 +6,7 @@ import { GetAllWord } from "@/api/word";
 import { Card, CardLoading } from "./card";
 import { CardType } from "@/types/words";
 import { useAuthStore } from "@/features/common";
+import { SearchWord } from "./search";
 
 export function CardsList() {
   const { cards, setCards, state, setLoaded } = useCardStore();
@@ -60,21 +61,24 @@ function LanguageChange(props: {
   setTarget: (value: string) => void;
 }) {
   return (
-    <div className="flex items-center">
-      {props.cards.map((card) => {
-        return (
-          <button
-            onClick={() => props.setTarget(card.language)}
-            key={card.language}
-            className={cn("py-2 px-4 rounded-t-lg text-zinc-400 text-sm", {
-              "border-b-4 border-b-purple-600 text-zinc-800 font-medium":
-                props.currentTarget === card.language,
-            })}
-          >
-            {Capitalize(card.language)}
-          </button>
-        );
-      })}
+    <div className="flex items-center justify-between w-full">
+      <div className="flex items-center">
+        {props.cards.map((card) => {
+          return (
+            <button
+              onClick={() => props.setTarget(card.language)}
+              key={card.language}
+              className={cn("py-2 px-4 rounded-t-lg text-zinc-400 text-sm", {
+                "border-b-4 border-b-purple-600 text-zinc-800 font-medium":
+                  props.currentTarget === card.language,
+              })}
+            >
+              {Capitalize(card.language)}
+            </button>
+          );
+        })}
+      </div>
+      <SearchWord />
     </div>
   );
 }

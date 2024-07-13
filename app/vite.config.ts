@@ -26,7 +26,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
-
+      "/metrics": {
+        target: "http://localhost:8081",
+        changeOrigin: true,
+        secure: false,
+      },
       "^/(?!app).*": {
         target: "http://localhost:4321",
         changeOrigin: true,

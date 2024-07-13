@@ -29,9 +29,12 @@ export function Card(props: { card: CardType }) {
 export function CardLoading() {
   return (
     <div className="w-full flex flex-wrap gap-3">
-      {[...new Array(10)].map(() => {
+      {[...new Array(10)].map((_, i) => {
         return (
-          <div className="flex-1 min-w-56 h-44 bg-gray-100 rounded-2xl animate-pulse border border-zinc-200 p-2 flex flex-col justify-between">
+          <div
+            key={i}
+            className="flex-1 min-w-56 h-44 bg-gray-100 rounded-2xl animate-pulse border border-zinc-200 p-2 flex flex-col justify-between"
+          >
             <div className="flex flex-col pt-2 gap-2">
               <span className="text-lg font-medium rounded-lg bg-zinc-200 text-zinc-200 animate-pulse">
                 Some title

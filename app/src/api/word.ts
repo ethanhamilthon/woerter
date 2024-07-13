@@ -40,6 +40,19 @@ export async function GetAllWord() {
   return data;
 }
 
+export async function GetSearchWordResult(prefix: string) {
+  const token = getToken();
+  console.log("first");
+  const req = await fetch(`/api/v1/searchword?prefix=${prefix}`, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  const data: WordType[] = await req.json();
+  if (!req.ok) throw new Error("words not found");
+  return data;
+}
+
 export async function GetWord(id: string) {
   const token = getToken();
   const req = await fetch(`/api/v1/word/${id}`, {
